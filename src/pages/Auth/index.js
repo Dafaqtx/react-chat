@@ -31,23 +31,23 @@ const Auth = () => {
               rules={[
                 {
                   required: true,
-                  message: 'Please input your Username!',
+                  message: 'Введите имя',
                 },
               ]}>
-              <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" size="large" />
+              <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Ваше имя" size="large" />
             </Form.Item>
             <Form.Item
               name="password"
               rules={[
                 {
                   required: true,
-                  message: 'Please input your Password!',
+                  message: 'Введите пароль',
                 },
               ]}>
               <Input
                 prefix={<LockOutlined className="site-form-item-icon" />}
                 type="password"
-                placeholder="Password"
+                placeholder="Ваш пароль"
                 size="large"
               />
             </Form.Item>
