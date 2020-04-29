@@ -134,5 +134,8 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "react-styleguidist": "^11.0.5"
   }
 }
