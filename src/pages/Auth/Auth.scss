@@ -1,0 +1,43 @@
+.Auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  &__header {
+    text-align: center;
+    margin-bottom: 30px;
+
+    h2 {
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 21px;
+      letter-spacing: 0.1;
+      opacity: 0.5;
+    }
+  }
+
+  &__registration-link {
+    font-size: 16px;
+    text-align: center;
+    display: block;
+    color: #adadad;
+    font-weight: 500;
+  }
+
+  .Button {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.1;
+    width: 100%;
+  }
+
+  .Block {
+    width: 430px;
+  }
+}

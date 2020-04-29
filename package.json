@@ -136,6 +136,7 @@
     ]
   },
   "devDependencies": {
-    "react-styleguidist": "^11.0.5"
+    "antd": "^4.2.0",
+    "classnames": "^2.2.6"
   }
 }

@@ -1,7 +1,13 @@
 import React from 'react'
 
-function App() {
-  return <div className="wrapper">App</div>
+import { Auth } from 'pages'
+
+const App = () => {
+  return (
+    <div className="wrapper">
+      <Auth />
+    </div>
+  )
 }
 
 export default App
