@@ -1,11 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import formatDistance from 'date-fns/formatDistance'
-import ruLocale from 'date-fns/locale/ru'
 
-import readedIcon from 'assets/img/readedIcon.svg'
-import checkIcon from 'assets/img/checkIcon.svg'
+import { CheckMarker, Time } from 'components'
 
 import './Message.scss'
 
@@ -19,14 +16,6 @@ const Message = ({
   isReaded,
   isTyping,
 }) => {
-  const beautyDate = date
-    ? formatDistance(date, new Date(), {
-        addSuffix: true,
-        locale: ruLocale,
-        includeSeconds: true,
-      })
-    : null
-
   return (
     <div
       className={classNames('Message', {
@@ -60,14 +49,10 @@ const Message = ({
               ))}
             </ul>
           )}
-          {beautyDate && <span className="Message__date">{beautyDate}</span>}
+          {date && <Time value={date} />}
         </div>
       </div>
-      {isMine && (
-        <div className="Message__checked">
-          <img src={isReaded ? readedIcon : checkIcon} alt="Статус" />
-        </div>
-      )}
+      {isMine && <CheckMarker checked={isReaded} />}
     </div>
   )
 }
