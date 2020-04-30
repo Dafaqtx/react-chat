@@ -4,11 +4,7 @@ import { Form } from 'antd'
 import { ExclamationCircleTwoTone } from '@ant-design/icons'
 import { Block, Button, Input } from 'components'
 
-const RegistrationForm = () => {
-  const onFinish = (values) => {
-    console.log(values)
-  }
-
+const RegistrationForm = ({ values, touched, errors, isSubmitting, handleChange, handleBlur, handleSubmit }) => {
   const success = false
 
   return (
@@ -19,53 +15,59 @@ const RegistrationForm = () => {
       </div>
       <Block>
         {!success ? (
-          <Form name="normal_login" className="login-form" onFinish={onFinish}>
+          <Form onFinish={handleSubmit} initialValues={values}>
             <Form.Item
               name="email"
-              rules={[
-                {
-                  required: true,
-                  message: 'Введите почту',
-                },
-              ]}
-              type="email">
-              <Input placeholder="E-mail" size="large" />
+              validateStatus={!touched.email ? '' : errors.email ? 'error' : 'success'}
+              hasFeedback>
+              <Input
+                type="email"
+                placeholder="E-mail"
+                size="large"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
+              />
             </Form.Item>
-            <Form.Item
-              name="name"
-              rules={[
-                {
-                  required: true,
-                  message: 'Введите ваше имя',
-                },
-              ]}>
-              <Input placeholder="Ваше имя" size="large" />
-            </Form.Item>
-            <Form.Item
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: 'Введите пароль',
-                },
-              ]}
-              type="password">
-              <Input placeholder="Пароль" size="large" />
+            <Form.Item name="name" validateStatus={!touched.name ? '' : errors.name ? 'error' : 'success'} hasFeedback>
+              <Input
+                type="text"
+                placeholder="Ваше имя"
+                size="large"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.name}
+              />
             </Form.Item>
             <Form.Item
               name="password"
-              rules={[
-                {
-                  required: true,
-                  message: 'Введите пароль',
-                },
-              ]}
-              type="password">
-              <Input placeholder="Повторить пароль" size="large" />
+              validateStatus={!touched.password ? '' : errors.password ? 'error' : 'success'}
+              hasFeedback>
+              <Input
+                placeholder="Пароль"
+                size="large"
+                type="password"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password}
+              />
+            </Form.Item>
+            <Form.Item
+              name="confirmation"
+              validateStatus={!touched.confirmation ? '' : errors.confirmation ? 'error' : 'success'}
+              hasFeedback>
+              <Input
+                placeholder="Повторить пароль"
+                size="large"
+                type="password"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.confirmation}
+              />
             </Form.Item>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit" size="large">
+              <Button type="primary" htmlType="submit" size="large" disabled={isSubmitting}>
                 Зарегистрироваться
               </Button>
             </Form.Item>
@@ -87,7 +89,5 @@ const RegistrationForm = () => {
     </div>
   )
 }
-
-RegistrationForm.propTypes = {}
 
 export default RegistrationForm

@@ -1,3 +1,3 @@
-import RegistrationForm from './components/RegistrationForm'
+import RegistrationForm from './containers/RegistrationForm'
 
 export default RegistrationForm
