@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Form } from 'antd'
-import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { Block, Button, Input } from 'components'
 
 const LoginForm = () => {
@@ -25,7 +24,7 @@ const LoginForm = () => {
                 message: 'Введите имя',
               },
             ]}>
-            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Ваше имя" size="large" />
+            <Input placeholder="Имя" size="large" />
           </Form.Item>
           <Form.Item
             name="password"
@@ -35,17 +34,12 @@ const LoginForm = () => {
                 message: 'Введите пароль',
               },
             ]}>
-            <Input
-              prefix={<LockOutlined className="site-form-item-icon" />}
-              type="password"
-              placeholder="Ваш пароль"
-              size="large"
-            />
+            <Input type="password" placeholder="Пароль" size="large" />
           </Form.Item>
 
           <Form.Item>
             <Button type="primary" htmlType="submit" size="large">
-              Войти в аккаунт
+              Войти
             </Button>
           </Form.Item>
 
