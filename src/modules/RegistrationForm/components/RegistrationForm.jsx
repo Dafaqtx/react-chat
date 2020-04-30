@@ -4,16 +4,7 @@ import { Form } from 'antd'
 import { ExclamationCircleTwoTone } from '@ant-design/icons'
 import { Block, Button, Input } from 'components'
 
-const RegistrationForm = ({
-  values,
-  touched,
-  errors,
-  isSubmitting,
-  handleChange,
-  handleBlur,
-  handleSubmit,
-  isValid,
-}) => {
+const RegistrationForm = ({ values, touched, errors, isSubmitting, handleChange, handleBlur, handleSubmit }) => {
   const success = false
 
   return (
