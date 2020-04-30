@@ -9,23 +9,48 @@ import checkIcon from 'assets/img/checkIcon.svg'
 
 import './Message.scss'
 
-const Message = ({ avatar, user, text, date, attachments, isMine, isReaded }) => {
-  const beautyDate = formatDistance(date, new Date(), {
-    addSuffix: true,
-    locale: ruLocale,
-    includeSeconds: true,
-  })
+const Message = ({
+  avatar,
+  user,
+  text,
+  date,
+  attachments,
+  isMine,
+  isReaded,
+  isTyping,
+}) => {
+  const beautyDate = date
+    ? formatDistance(date, new Date(), {
+        addSuffix: true,
+        locale: ruLocale,
+        includeSeconds: true,
+      })
+    : null
 
   return (
-    <div className={classNames('Message', { 'Message--my': isMine })}>
+    <div
+      className={classNames('Message', {
+        'Message--my': isMine,
+        'Message--typing': isTyping,
+        'Message--image': attachments.length === 1,
+      })}>
       <div className="Message__avatar">
         <img src={avatar} alt={`Avatar ${user.fullName}`} />
       </div>
       <div className="Message__info">
         <div className="Message__content">
-          <div className="Message__bubble">
-            <p className="Message__text">{text}</p>
-          </div>
+          {(text || isTyping) && (
+            <div className="Message__bubble">
+              {text && <p className="Message__text">{text}</p>}
+              {isTyping && (
+                <div className="Message__typing-indicator">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              )}
+            </div>
+          )}
           {attachments && (
             <ul className="Message__attachments">
               {attachments.map((attach, index) => (
@@ -35,12 +60,12 @@ const Message = ({ avatar, user, text, date, attachments, isMine, isReaded }) =>
               ))}
             </ul>
           )}
-          <span className="Message__date">{beautyDate}</span>
+          {beautyDate && <span className="Message__date">{beautyDate}</span>}
         </div>
       </div>
       {isMine && (
         <div className="Message__checked">
-          <img src={isReaded ? readedIcon : checkIcon} alt="" />
+          <img src={isReaded ? readedIcon : checkIcon} alt="Статус" />
         </div>
       )}
     </div>
@@ -55,6 +80,7 @@ Message.propTypes = {
   attachments: PropTypes.array,
   isMine: PropTypes.bool,
   isReaded: PropTypes.bool,
+  isTyping: PropTypes.bool,
 }
 
 Message.defaultProps = {
@@ -62,6 +88,7 @@ Message.defaultProps = {
   attachments: [],
   isMine: false,
   isReaded: false,
+  isTyping: false,
 }
 
 export default Message

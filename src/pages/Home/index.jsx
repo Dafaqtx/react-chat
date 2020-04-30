@@ -33,6 +33,21 @@ const Home = () => {
         isMine
         isReaded
       />
+      <Message
+        avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+        isTyping
+      />
+       <Message
+        avatar="https://www.visitsarasota.com/sites/default/files/styles/listing_node_full/public/mmg_lfef_images/img-academy-156-e1cc497311032f22eae4e66ce77b23f3.jpg"
+        date={Date.parse('Thu Apr 30 2020 15:40:23')}
+        attachments={[
+          {
+            filename: 'image.jpg',
+            url: 'https://source.unsplash.com/100x100/?random=1&nature,water',
+          },
+          
+        ]}
+      />
     </section>
   )
 }
