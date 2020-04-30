@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Form } from 'antd'
 import { ExclamationCircleTwoTone } from '@ant-design/icons'
+
 import { Block, Button, Input } from 'components'
 
 const RegistrationForm = ({
@@ -12,7 +13,6 @@ const RegistrationForm = ({
   handleChange,
   handleBlur,
   handleSubmit,
-  isValid,
 }) => {
   const success = false
 
@@ -81,7 +81,6 @@ const RegistrationForm = ({
                 value={values.confirmation}
               />
             </Form.Item>
-
             <Form.Item>
               <Button type="primary" htmlType="submit" size="large" disabled={isSubmitting}>
                 Зарегистрироваться
