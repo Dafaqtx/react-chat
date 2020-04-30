@@ -4,7 +4,16 @@ import { Form } from 'antd'
 import { ExclamationCircleTwoTone } from '@ant-design/icons'
 import { Block, Button, Input } from 'components'
 
-const RegistrationForm = ({ values, touched, errors, isSubmitting, handleChange, handleBlur, handleSubmit }) => {
+const RegistrationForm = ({
+  values,
+  touched,
+  errors,
+  isSubmitting,
+  handleChange,
+  handleBlur,
+  handleSubmit,
+  isValid,
+}) => {
   const success = false
 
   return (
@@ -19,6 +28,7 @@ const RegistrationForm = ({ values, touched, errors, isSubmitting, handleChange,
             <Form.Item
               name="email"
               validateStatus={!touched.email ? '' : errors.email ? 'error' : 'success'}
+              help={touched.email ? errors.email : null}
               hasFeedback>
               <Input
                 type="email"
@@ -29,7 +39,11 @@ const RegistrationForm = ({ values, touched, errors, isSubmitting, handleChange,
                 value={values.email}
               />
             </Form.Item>
-            <Form.Item name="name" validateStatus={!touched.name ? '' : errors.name ? 'error' : 'success'} hasFeedback>
+            <Form.Item
+              name="name"
+              validateStatus={!touched.name ? '' : errors.name ? 'error' : 'success'}
+              help={touched.name ? errors.name : null}
+              hasFeedback>
               <Input
                 type="text"
                 placeholder="Ваше имя"
@@ -42,6 +56,7 @@ const RegistrationForm = ({ values, touched, errors, isSubmitting, handleChange,
             <Form.Item
               name="password"
               validateStatus={!touched.password ? '' : errors.password ? 'error' : 'success'}
+              help={touched.password ? errors.password : null}
               hasFeedback>
               <Input
                 placeholder="Пароль"
@@ -55,6 +70,7 @@ const RegistrationForm = ({ values, touched, errors, isSubmitting, handleChange,
             <Form.Item
               name="confirmation"
               validateStatus={!touched.confirmation ? '' : errors.confirmation ? 'error' : 'success'}
+              help={touched.confirmation ? errors.confirmation : null}
               hasFeedback>
               <Input
                 placeholder="Повторить пароль"
