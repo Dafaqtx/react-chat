@@ -1,0 +1,38 @@
+@import '~styles/variables';
+
+.Message {
+  display: flex;
+  max-width: 500px;
+  margin-bottom: 15px;
+
+  &__avatar {
+    display: flex;
+    align-self: flex-end;
+
+    img {
+      border-radius: 50%;
+      width: 33px;
+      height: 33px;
+      margin-right: 15px;
+      margin-bottom: 22px;
+    }
+  }
+
+  &__bubble {
+    background: $blue;
+    box-shadow: 0px 5px 5px rgba(54, 116, 255, 0.196733);
+    border-radius: 12px 12px 12px 0px;
+    padding: 15px;
+    margin-bottom: 5px;
+  }
+
+  &__text {
+    color: $white;
+    line-height: 20px;
+  }
+
+  &__date {
+    font-size: 12px;
+    opacity: 0.5;
+  }
+}
