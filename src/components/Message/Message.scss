@@ -1,9 +1,13 @@
 @import '~styles/variables';
 
 .Message {
-  display: flex;
+  $self: &;
   max-width: 500px;
   margin-bottom: 15px;
+
+  &__content {
+    display: flex;
+  }
 
   &__avatar {
     display: flex;
@@ -34,5 +38,48 @@
   &__date {
     font-size: 12px;
     opacity: 0.5;
+  }
+
+  &__checked {
+    align-self: flex-end;
+    margin-bottom: 15px;
+    margin-right: 10px;
+  }
+
+  &--my {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-left: auto;
+
+    #{$self}__content {
+      margin-bottom: 15px;
+      flex-direction: row-reverse;
+    }
+    #{$self}__avatar {
+      margin-bottom: 15px;
+      flex-direction: row-reverse;
+
+      img {
+        margin-right: 0;
+        margin-left: 15px;
+      }
+    }
+
+    #{$self}__bubble {
+      background: $white;
+      border: 1px solid #ececec;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.220444);
+      border-radius: 12px 12px 0px 12px;
+
+      #{$self}__text {
+        color: $black;
+      }
+    }
+
+    #{$self}__date {
+      display: inline-block;
+      width: 100%;
+      text-align: right;
+    }
   }
 }
