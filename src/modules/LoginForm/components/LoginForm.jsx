@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Form } from 'antd'
+import {validateField} from 'utils/helpers'
 
 import { Block, Button, Input } from 'components'
 
@@ -24,23 +25,32 @@ const LoginForm = ({
         <Form onFinish={handleSubmit}>
           <Form.Item
             name="name"
-            validateStatus={!touched.name ? '' : errors.name ? 'error' : 'success'}
+            validateStatus={validateField('name', touched, errors)}
             help={touched.name ? errors.name : null}
             hasFeedback
            >
-            <Input placeholder="Имя" size="large"  onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.name}/>
+            <Input
+              placeholder="Имя"
+              size="large"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.name}
+            />
           </Form.Item>
           <Form.Item
             name="password"
-            validateStatus={!touched.password ? '' : errors.name ? 'error' : 'success'}
+            validateStatus={validateField('password', touched, errors)}
             help={touched.password ? errors.password : null}
             hasFeedback
-            >
-            <Input type="password" placeholder="Пароль" size="large" onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password} />
+          >
+            <Input 
+              type="password" 
+              placeholder="Пароль" 
+              size="large" 
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.password}
+            />
           </Form.Item>
 
           <Form.Item>

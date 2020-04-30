@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Form } from 'antd'
 import { ExclamationCircleTwoTone } from '@ant-design/icons'
+import {validateField} from 'utils/helpers'
 
 import { Block, Button, Input } from 'components'
 
@@ -27,7 +28,7 @@ const RegistrationForm = ({
           <Form onFinish={handleSubmit} initialValues={values}>
             <Form.Item
               name="email"
-              validateStatus={!touched.email ? '' : errors.email ? 'error' : 'success'}
+              validateStatus={validateField('email', touched, errors)}
               help={touched.email ? errors.email : null}
               hasFeedback>
               <Input
@@ -41,7 +42,7 @@ const RegistrationForm = ({
             </Form.Item>
             <Form.Item
               name="name"
-              validateStatus={!touched.name ? '' : errors.name ? 'error' : 'success'}
+              validateStatus={validateField('name', touched, errors)}
               help={touched.name ? errors.name : null}
               hasFeedback>
               <Input
@@ -55,7 +56,7 @@ const RegistrationForm = ({
             </Form.Item>
             <Form.Item
               name="password"
-              validateStatus={!touched.password ? '' : errors.password ? 'error' : 'success'}
+              validateStatus={validateField('password', touched, errors)}
               help={touched.password ? errors.password : null}
               hasFeedback>
               <Input
@@ -69,7 +70,7 @@ const RegistrationForm = ({
             </Form.Item>
             <Form.Item
               name="confirmation"
-              validateStatus={!touched.confirmation ? '' : errors.confirmation ? 'error' : 'success'}
+              validateStatus={validateField('confirmation', touched, errors)}
               help={touched.confirmation ? errors.confirmation : null}
               hasFeedback>
               <Input
