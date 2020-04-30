@@ -9,7 +9,7 @@ import checkIcon from 'assets/img/checkIcon.svg'
 
 import './Message.scss'
 
-const Message = ({ avatar, user, text, date, isMine, isReaded }) => {
+const Message = ({ avatar, user, text, date, attachments, isMine, isReaded }) => {
   const beautyDate = formatDistance(date, new Date(), {
     addSuffix: true,
     locale: ruLocale,
@@ -18,22 +18,31 @@ const Message = ({ avatar, user, text, date, isMine, isReaded }) => {
 
   return (
     <div className={classNames('Message', { 'Message--my': isMine })}>
-      <div className="Message__content">
-        <div className="Message__avatar">
-          <img src={avatar} alt={`Avatar ${user.fullName}`} />
-        </div>
-        <div className="Message__info">
+      <div className="Message__avatar">
+        <img src={avatar} alt={`Avatar ${user.fullName}`} />
+      </div>
+      <div className="Message__info">
+        <div className="Message__content">
           <div className="Message__bubble">
             <p className="Message__text">{text}</p>
           </div>
+          {attachments && (
+            <ul className="Message__attachments">
+              {attachments.map((attach, index) => (
+                <li className="Message__attachments-item" key={index}>
+                  <img src={attach.url} alt={attach.fileName} />
+                </li>
+              ))}
+            </ul>
+          )}
           <span className="Message__date">{beautyDate}</span>
         </div>
-        {isMine && (
-          <div className="Message__checked">
-            <img src={isReaded ? readedIcon : checkIcon} alt="" />
-          </div>
-        )}
       </div>
+      {isMine && (
+        <div className="Message__checked">
+          <img src={isReaded ? readedIcon : checkIcon} alt="" />
+        </div>
+      )}
     </div>
   )
 }
@@ -43,12 +52,14 @@ Message.propTypes = {
   user: PropTypes.object,
   text: PropTypes.string,
   date: PropTypes.number,
+  attachments: PropTypes.array,
   isMine: PropTypes.bool,
   isReaded: PropTypes.bool,
 }
 
 Message.defaultProps = {
   user: {},
+  attachments: [],
   isMine: false,
   isReaded: false,
 }

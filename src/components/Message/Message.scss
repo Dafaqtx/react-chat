@@ -2,12 +2,9 @@
 
 .Message {
   $self: &;
+  display: flex;
   max-width: 500px;
   margin-bottom: 15px;
-
-  &__content {
-    display: flex;
-  }
 
   &__avatar {
     display: flex;
@@ -35,14 +32,38 @@
     line-height: 20px;
   }
 
+  &__info {
+    display: flex;
+    flex-direction: column;
+  }
+
   &__date {
     font-size: 12px;
     opacity: 0.5;
   }
 
+  &__attachments {
+    display: flex;
+
+    &-item {
+      margin-right: 5px;
+      cursor: pointer;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      img {
+        width: 45px;
+        height: 45px;
+        border-radius: 8px;
+      }
+    }
+  }
+
   &__checked {
     align-self: flex-end;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
     margin-right: 10px;
   }
 
