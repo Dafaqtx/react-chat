@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { DialogList, } from 'components'
+import { DialogList, Message } from 'components'
 
 import './Home.scss'
 
@@ -38,9 +38,9 @@ const Home = () => {
 
   return (
     <section className="Home">
-      <DialogList dialogs={dialogs} userId={myid} />
+      {/* <DialogList dialogs={dialogs} userId={myid} /> */}
   
-      {/* <Message
+      <Message
         avatar="https://www.visitsarasota.com/sites/default/files/styles/listing_node_full/public/mmg_lfef_images/img-academy-156-e1cc497311032f22eae4e66ce77b23f3.jpg"
         text="Мы тут недавно войска Ариовиста разбили, чуваки хотели закрепиться на галльских землях, лол 🌝"
         date={Date.parse('Thu Apr 30 2020 15:40:23')}
@@ -80,7 +80,7 @@ const Home = () => {
           },
           
         ]}
-      /> */}
+      />
     </section>
   )
 }

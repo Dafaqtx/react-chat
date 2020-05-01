@@ -26,13 +26,13 @@ const DialogItem = ({ dialog, isMine }) => {
         </div>
         <div className="DialogItem__bottom">
           <p className="DialogItem__text">{dialog.text}</p>
-          {isMine}
+
           {dialog.unreaded > 0 ? (
             <span className="DialogItem__counter">
               {dialog.unreaded > 9 ? '9+' : dialog.unreaded}
             </span>
           ) : (
-            <CheckMarker checked={dialog.unreaded === 0} />
+            <CheckMarker checked={isMine && dialog.unreaded === 0} />
           )}
         </div>
       </div>
