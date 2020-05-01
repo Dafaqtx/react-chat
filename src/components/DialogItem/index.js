@@ -24,7 +24,9 @@ const DialogItem = ({ user, message }) => (
       <div className="DialogItem__bottom">
         <p className="DialogItem__text">{message.text}</p>
         {message.unreaded > 0 ? (
-          <span className="DialogItem__counter">{message.unreaded}</span>
+          <span className="DialogItem__counter">
+            {message.unreaded > 9 ? '9+' : message.unreaded}
+          </span>
         ) : (
           <CheckMarker checked={message.unreaded === 0} />
         )}
