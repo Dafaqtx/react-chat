@@ -42,25 +42,6 @@
     opacity: 0.5;
   }
 
-  &__attachments {
-    display: flex;
-
-    &-item {
-      margin-right: 5px;
-      cursor: pointer;
-
-      &:last-child {
-        margin-right: 0;
-      }
-
-      img {
-        width: 45px;
-        height: 45px;
-        border-radius: 8px;
-      }
-    }
-  }
-
   .CheckMarker {
     align-self: flex-end;
     margin-bottom: 30px;
@@ -101,18 +82,6 @@
       display: inline-block;
       width: 100%;
       text-align: right;
-    }
-  }
-
-  @keyframes blink {
-    50% {
-      opacity: 1;
-    }
-  }
-
-  @keyframes bulge {
-    50% {
-      transform: scale(1.05);
     }
   }
 

@@ -2,7 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-import { MessageAudio, MessageTyping, CheckMarker, Time } from 'components'
+import {
+  MessageAudio,
+  MessageTyping,
+  MessageAttachments,
+  CheckMarker,
+  Time,
+} from 'components'
 
 import './Message.scss'
 
@@ -40,13 +46,7 @@ const Message = ({
             </div>
           )}
           {!!attachments.length && (
-            <ul className="Message__attachments">
-              {attachments.map((attach, index) => (
-                <li className="Message__attachments-item" key={index}>
-                  <img src={attach.url} alt={attach.fileName} />
-                </li>
-              ))}
-            </ul>
+            <MessageAttachments attachments={attachments} />
           )}
           {date && <Time value={date} />}
         </div>

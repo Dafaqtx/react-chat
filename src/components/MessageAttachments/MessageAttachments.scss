@@ -1,0 +1,18 @@
+.MessageAttachments {
+  display: flex;
+
+  &__item {
+    margin-right: 5px;
+    cursor: pointer;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    img {
+      width: 45px;
+      height: 45px;
+      border-radius: 8px;
+    }
+  }
+}
