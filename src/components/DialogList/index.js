@@ -4,10 +4,14 @@ import DialogItem from '../DialogItem'
 
 import './DialogList.scss'
 
-const DialogList = ({ dialogs }) => (
+const DialogList = ({ dialogs, userId }) => (
   <div className="DialogList">
     {dialogs.map(dialog => (
-      <DialogItem data={dialog.message} key={dialog._id} />
+      <DialogItem
+        dialog={dialog}
+        key={dialog.id}
+        isMine={dialog.user.id === userId}
+      />
     ))}
   </div>
 )

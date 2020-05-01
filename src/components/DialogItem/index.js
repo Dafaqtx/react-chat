@@ -5,33 +5,34 @@ import { Time, CheckMarker } from 'components'
 
 import './DialogItem.scss'
 
-const DialogItem = ({ data }) => {
+const DialogItem = ({ dialog, isMine }) => {
   return (
     <div className="DialogItem">
       <div
         className={classNames('DialogItem__avatar', {
-          'DialogItem__avatar--online': data.user.isOnline,
+          'DialogItem__avatar--online': dialog.user.isOnline,
         })}>
-        <img src={data.user.avatar} alt={`${data.user.fullName} avatar`} />
+        <img src={dialog.user.avatar} alt={`${dialog.user.fullName} avatar`} />
       </div>
       <div className="DialogItem__content">
         <div className="DialogItem__top">
-          <span className="DialogItem__name">{data.user.fullName}</span>
+          <span className="DialogItem__name">{dialog.user.fullName}</span>
           <Time
-            value={data.createdAt}
+            value={dialog.createdAt}
             addSuffix={false}
             includeSeconds={false}
             isFormatted
           />
         </div>
         <div className="DialogItem__bottom">
-          <p className="DialogItem__text">{data.text}</p>
-          {data.unreaded > 0 ? (
+          <p className="DialogItem__text">{dialog.text}</p>
+          {isMine}
+          {dialog.unreaded > 0 ? (
             <span className="DialogItem__counter">
-              {data.unreaded > 9 ? '9+' : data.unreaded}
+              {dialog.unreaded > 9 ? '9+' : dialog.unreaded}
             </span>
           ) : (
-            <CheckMarker checked={data.unreaded === 0} />
+            <CheckMarker checked={dialog.unreaded === 0} />
           )}
         </div>
       </div>
