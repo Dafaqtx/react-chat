@@ -27,7 +27,7 @@ const Home = () => {
       },
       message: {
         text: 'Lorem ipsum do sole abre librum, Lorem ipsum do sole abre librum',
-        createdAt: new Date(),
+        createdAt: Date.parse('Thu April 30 2020 11:45:51 GMT+0300 (Москва, стандартное время)'),
         unreaded: 10,
       }
     },
@@ -38,7 +38,7 @@ const Home = () => {
       },
       message: {
         text: 'Lorem ipsum do sole abre librum, Lorem ipsum do sole abre librum',
-        createdAt: new Date(),
+        createdAt: Date.parse('Wed April 29 2020 09:45:51 GMT+0300 (Москва, стандартное время)'),
         unreaded: 0
       }
     }
