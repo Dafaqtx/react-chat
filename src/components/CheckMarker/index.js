@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import readedIcon from 'assets/img/readedIcon.svg'
-import checkIcon from 'assets/img/checkIcon.svg'
+import { readedIcon, checkIcon } from 'assets/icons'
 
 const CheckMarker = ({ checked }) => {
   return (

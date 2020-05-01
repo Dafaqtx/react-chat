@@ -1,7 +1,7 @@
 @import '~styles/variables';
 
 .Message {
-  $self: &;
+  $message: &;
   display: flex;
   max-width: 500px;
   margin-bottom: 15px;
@@ -72,11 +72,11 @@
     flex-direction: row-reverse;
     margin-left: auto;
 
-    #{$self}__content {
+    #{$message}__content {
       margin-bottom: 15px;
       flex-direction: row-reverse;
     }
-    #{$self}__avatar {
+    #{$message}__avatar {
       margin-bottom: 15px;
       flex-direction: row-reverse;
 
@@ -86,18 +86,18 @@
       }
     }
 
-    #{$self}__bubble {
+    #{$message}__bubble {
       background: $white;
       border: 1px solid #ececec;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.220444);
       border-radius: 12px 12px 0px 12px;
 
-      #{$self}__text {
+      #{$message}__text {
         color: $black;
       }
     }
 
-    #{$self}__date {
+    #{$message}__date {
       display: inline-block;
       width: 100%;
       text-align: right;
@@ -109,7 +109,7 @@
       opacity: 1;
     }
   }
-  
+
   @keyframes bulge {
     50% {
       transform: scale(1.05);
@@ -125,7 +125,6 @@
     position: relative;
     animation: 2s bulge infinite ease-out;
 
-  
     span {
       height: 8px;
       width: 8px;
@@ -137,19 +136,76 @@
 
       @for $i from 1 through 3 {
         &:nth-of-type(#{$i}) {
-          animation: 1s blink infinite ($i * .3333s);
+          animation: 1s blink infinite ($i * 0.3333s);
         }
       }
     }
   }
 
   &--image {
-    #{$self}__attachments {
+    #{$message}__attachments {
       &-item {
         img {
           width: 150px;
           height: 150px;
         }
+      }
+    }
+  }
+
+  &--audio {
+    audio {
+      display: none;
+    }
+
+    #{$message}__bubble {
+      position: relative;
+      overflow: hidden;
+    }
+
+    #{$message}__audio {
+      width: 240px;
+
+      &-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      &-btn {
+        z-index: 1;
+
+        button {
+          width: 28px;
+          height: 28px;
+          border: none;
+          border-radius: 50%;
+          background: $dark-blue;
+          padding: 0;
+
+          img {
+            padding: 5px;
+            width: 25px;
+            height: 28px;
+          }
+        }
+      }
+
+      &-duration {
+        font-size: 12px;
+        color: $white;
+        opacity: 0.5;
+        font-weight: 500;
+      }
+
+      &-progress {
+        display: block;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: rgba($light-blue, 0.2);
+        transition: width 0.3s ease;
       }
     }
   }
