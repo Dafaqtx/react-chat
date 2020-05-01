@@ -1,13 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Form } from 'antd'
+import {validateField} from 'utils/helpers'
+
 import { Block, Button, Input } from 'components'
 
-const LoginForm = () => {
-  const onFinish = (values) => {
-    console.log(values)
-  }
-
+const LoginForm = ({
+  values,
+  touched,
+  errors,
+  isSubmitting,
+  handleChange,
+  handleBlur,
+  handleSubmit,
+}) => {
+ 
   return (
     <div>
       <div className="Auth__header">
@@ -15,30 +22,39 @@ const LoginForm = () => {
         <p>Пожалуйста, войдите в аккаунт </p>
       </div>
       <Block>
-        <Form name="normal_login" className="login-form" onFinish={onFinish}>
+        <Form onFinish={handleSubmit}>
           <Form.Item
-            name="username"
-            rules={[
-              {
-                required: true,
-                message: 'Введите имя',
-              },
-            ]}>
-            <Input placeholder="Имя" size="large" />
+            name="name"
+            validateStatus={validateField('name', touched, errors)}
+            help={touched.name ? errors.name : null}
+            hasFeedback
+           >
+            <Input
+              placeholder="Имя"
+              size="large"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.name}
+            />
           </Form.Item>
           <Form.Item
             name="password"
-            rules={[
-              {
-                required: true,
-                message: 'Введите пароль',
-              },
-            ]}>
-            <Input type="password" placeholder="Пароль" size="large" />
+            validateStatus={validateField('password', touched, errors)}
+            help={touched.password ? errors.password : null}
+            hasFeedback
+          >
+            <Input 
+              type="password" 
+              placeholder="Пароль" 
+              size="large" 
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.password}
+            />
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" size="large">
+            <Button type="primary" htmlType="submit" size="large" disabled={isSubmitting}>
               Войти
             </Button>
           </Form.Item>

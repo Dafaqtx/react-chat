@@ -2,9 +2,19 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Form } from 'antd'
 import { ExclamationCircleTwoTone } from '@ant-design/icons'
+import { validateField } from 'utils/helpers'
+
 import { Block, Button, Input } from 'components'
 
-const RegistrationForm = ({ values, touched, errors, isSubmitting, handleChange, handleBlur, handleSubmit }) => {
+const RegistrationForm = ({
+  values,
+  touched,
+  errors,
+  isSubmitting,
+  handleChange,
+  handleBlur,
+  handleSubmit,
+}) => {
   const success = false
 
   return (
@@ -18,7 +28,7 @@ const RegistrationForm = ({ values, touched, errors, isSubmitting, handleChange,
           <Form onFinish={handleSubmit} initialValues={values}>
             <Form.Item
               name="email"
-              validateStatus={!touched.email ? '' : errors.email ? 'error' : 'success'}
+              validateStatus={validateField('email', touched, errors)}
               help={touched.email ? errors.email : null}
               hasFeedback>
               <Input
@@ -32,7 +42,7 @@ const RegistrationForm = ({ values, touched, errors, isSubmitting, handleChange,
             </Form.Item>
             <Form.Item
               name="name"
-              validateStatus={!touched.name ? '' : errors.name ? 'error' : 'success'}
+              validateStatus={validateField('name', touched, errors)}
               help={touched.name ? errors.name : null}
               hasFeedback>
               <Input
@@ -46,7 +56,7 @@ const RegistrationForm = ({ values, touched, errors, isSubmitting, handleChange,
             </Form.Item>
             <Form.Item
               name="password"
-              validateStatus={!touched.password ? '' : errors.password ? 'error' : 'success'}
+              validateStatus={validateField('password', touched, errors)}
               help={touched.password ? errors.password : null}
               hasFeedback>
               <Input
@@ -60,7 +70,7 @@ const RegistrationForm = ({ values, touched, errors, isSubmitting, handleChange,
             </Form.Item>
             <Form.Item
               name="confirmation"
-              validateStatus={!touched.confirmation ? '' : errors.confirmation ? 'error' : 'success'}
+              validateStatus={validateField('confirmation', touched, errors)}
               help={touched.confirmation ? errors.confirmation : null}
               hasFeedback>
               <Input
@@ -72,9 +82,12 @@ const RegistrationForm = ({ values, touched, errors, isSubmitting, handleChange,
                 value={values.confirmation}
               />
             </Form.Item>
-
             <Form.Item>
-              <Button type="primary" htmlType="submit" size="large" disabled={isSubmitting}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                size="large"
+                disabled={isSubmitting}>
                 Зарегистрироваться
               </Button>
             </Form.Item>
@@ -89,7 +102,10 @@ const RegistrationForm = ({ values, touched, errors, isSubmitting, handleChange,
               <ExclamationCircleTwoTone />
             </div>
             <h2>Подтвердите свой аккаунт</h2>
-            <p>На Вашу почту было отправлено письмо со ссылкой для подтверждения аккаунта.</p>
+            <p>
+              На Вашу почту было отправлено письмо со ссылкой для подтверждения
+              аккаунта.
+            </p>
           </div>
         )}
       </Block>

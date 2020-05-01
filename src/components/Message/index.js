@@ -1,31 +1,48 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import formatDistance from 'date-fns/formatDistance'
-import ruLocale from 'date-fns/locale/ru'
 
-import readedIcon from 'assets/img/readedIcon.svg'
-import checkIcon from 'assets/img/checkIcon.svg'
+import { CheckMarker, Time } from 'components'
 
 import './Message.scss'
 
-const Message = ({ avatar, user, text, date, attachments, isMine, isReaded }) => {
-  const beautyDate = formatDistance(date, new Date(), {
-    addSuffix: true,
-    locale: ruLocale,
-    includeSeconds: true,
-  })
-
+const Message = ({
+  avatar,
+  user,
+  text,
+  date,
+  attachments,
+  audioFile,
+  isMine,
+  isReaded,
+  isTyping,
+}) => {
   return (
-    <div className={classNames('Message', { 'Message--my': isMine })}>
+    <div
+      className={classNames('Message', {
+        'Message--my': isMine,
+        'Message--typing': isTyping,
+        'Message--audio': audioFile !== '',
+        'Message--image': attachments.length === 1,
+      })}>
       <div className="Message__avatar">
         <img src={avatar} alt={`Avatar ${user.fullName}`} />
       </div>
       <div className="Message__info">
         <div className="Message__content">
-          <div className="Message__bubble">
-            <p className="Message__text">{text}</p>
-          </div>
+          {(audioFile || text || isTyping) && (
+            <div className="Message__bubble">
+              {text && <p className="Message__text">{text}</p>}
+              {isTyping && (
+                <div className="Message__typing-indicator">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              )}
+              {audioFile && '123'}
+            </div>
+          )}
           {attachments && (
             <ul className="Message__attachments">
               {attachments.map((attach, index) => (
@@ -35,14 +52,10 @@ const Message = ({ avatar, user, text, date, attachments, isMine, isReaded }) =>
               ))}
             </ul>
           )}
-          <span className="Message__date">{beautyDate}</span>
+          {date && <Time value={date} />}
         </div>
       </div>
-      {isMine && (
-        <div className="Message__checked">
-          <img src={isReaded ? readedIcon : checkIcon} alt="" />
-        </div>
-      )}
+      {isMine && <CheckMarker checked={isReaded} />}
     </div>
   )
 }
@@ -53,15 +66,19 @@ Message.propTypes = {
   text: PropTypes.string,
   date: PropTypes.number,
   attachments: PropTypes.array,
+  audioFile: PropTypes.string,
   isMine: PropTypes.bool,
   isReaded: PropTypes.bool,
+  isTyping: PropTypes.bool,
 }
 
 Message.defaultProps = {
   user: {},
   attachments: [],
+  audioFile: '',
   isMine: false,
   isReaded: false,
+  isTyping: false,
 }
 
 export default Message

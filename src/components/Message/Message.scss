@@ -37,7 +37,7 @@
     flex-direction: column;
   }
 
-  &__date {
+  .Time {
     font-size: 12px;
     opacity: 0.5;
   }
@@ -61,7 +61,7 @@
     }
   }
 
-  &__checked {
+  .CheckMarker {
     align-self: flex-end;
     margin-bottom: 30px;
     margin-right: 10px;
@@ -101,6 +101,56 @@
       display: inline-block;
       width: 100%;
       text-align: right;
+    }
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes bulge {
+    50% {
+      transform: scale(1.05);
+    }
+  }
+
+  &__typing-indicator {
+    will-change: transform;
+    width: auto;
+    border-radius: 50px;
+    display: flex;
+    margin: 0 auto;
+    position: relative;
+    animation: 2s bulge infinite ease-out;
+
+  
+    span {
+      height: 8px;
+      width: 8px;
+      margin: 0 2px;
+      background-color: $grey;
+      display: inline-block;
+      border-radius: 50%;
+      opacity: 0.4;
+
+      @for $i from 1 through 3 {
+        &:nth-of-type(#{$i}) {
+          animation: 1s blink infinite ($i * .3333s);
+        }
+      }
+    }
+  }
+
+  &--image {
+    #{$self}__attachments {
+      &-item {
+        img {
+          width: 150px;
+          height: 150px;
+        }
+      }
     }
   }
 }
