@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 
-import { Time, CheckMarker } from 'components'
+import { Avatar, Time, CheckMarker } from 'components'
 
 import './DialogItem.scss'
 
@@ -12,7 +12,7 @@ const DialogItem = ({ dialog, isMine }) => {
         className={classNames('DialogItem__avatar', {
           'DialogItem__avatar--online': dialog.user.isOnline,
         })}>
-        <img src={dialog.user.avatar} alt={`${dialog.user.fullName} avatar`} />
+        <Avatar src={dialog.user.avatar} user={dialog.user} />
       </div>
       <div className="DialogItem__content">
         <div className="DialogItem__top">

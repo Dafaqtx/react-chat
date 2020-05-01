@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 import {
+  Avatar,
   MessageAudio,
   MessageTyping,
   MessageAttachments,
@@ -31,9 +32,8 @@ const Message = ({
         'Message--audio': audioFile !== '',
         'Message--image': attachments.length === 1,
       })}>
-      <div className="Message__avatar">
-        <img src={avatar} alt={`Avatar ${user.fullName}`} />
-      </div>
+      <Avatar src={avatar} user={user} />
+
       <div className="Message__info">
         <div className="Message__content">
           {(audioFile || text || isTyping) && (
