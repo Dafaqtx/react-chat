@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-import { MessageAudio, CheckMarker, Time } from 'components'
+import { MessageAudio, MessageTyping, CheckMarker, Time } from 'components'
 
 import './Message.scss'
 
@@ -34,13 +34,7 @@ const Message = ({
             <div className="Message__bubble">
               {text && <p className="Message__text">{text}</p>}
 
-              {isTyping && (
-                <div className="Message__typing-indicator">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              )}
+              {isTyping && <MessageTyping />}
 
               {audioFile && <MessageAudio src={audioFile} />}
             </div>

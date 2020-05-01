@@ -116,32 +116,6 @@
     }
   }
 
-  &__typing-indicator {
-    will-change: transform;
-    width: auto;
-    border-radius: 50px;
-    display: flex;
-    margin: 0 auto;
-    position: relative;
-    animation: 2s bulge infinite ease-out;
-
-    span {
-      height: 8px;
-      width: 8px;
-      margin: 0 2px;
-      background-color: $grey;
-      display: inline-block;
-      border-radius: 50%;
-      opacity: 0.4;
-
-      @for $i from 1 through 3 {
-        &:nth-of-type(#{$i}) {
-          animation: 1s blink infinite ($i * 0.3333s);
-        }
-      }
-    }
-  }
-
   &--image {
     #{$message}__attachments {
       &-item {
