@@ -9,8 +9,8 @@ const DialogList = ({ dialogs, userId }) => (
     {dialogs.map(dialog => (
       <DialogItem
         dialog={dialog}
-        key={dialog.id}
-        isMine={dialog.user.id === userId}
+        key={dialog._id}
+        isMine={dialog.user._id === userId}
       />
     ))}
   </div>

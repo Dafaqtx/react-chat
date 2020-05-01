@@ -1,6 +1,12 @@
 @import '~reset-css';
 @import '~antd/dist/antd.css';
 
+@import 'layouts/chat';
+
+body {
+  background: #f4f7fd;
+}
+
 body,
 html,
 #root,

@@ -1,0 +1,61 @@
+@import '../variables';
+
+.Chat {
+    display: flex;
+    background: $white;
+    width: 1140px;
+    margin: 0 auto;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.04204);
+    height: 100%;
+
+    &__sidebar {
+        width: 320px;
+        border-right: 1px solid #f7f8f9;
+
+        &-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        &-list {
+            span[role="img"] {
+                margin-right: 5px;
+            }
+        }
+
+        &-search {
+            padding: 0 20px;
+
+            ant-input {
+                background: #f7f8f9;
+                border: 0;
+                height: 38px;
+                padding: 4px 11px 6px;
+            }
+        }
+
+        &-dialogs {
+            .DialogList {
+                .DialogItem {
+                    padding: 15px 20px;
+                    cursor: pointer;
+                    transition: all .3s ease;
+                    
+                    &.active,
+                    &:hover {
+                        background-color: #f3f7ff;
+                        transition: all .3s ease;
+                    }
+                }
+            }
+        }
+
+        
+    }
+
+    &__dialog {
+        flex: 1;
+    }
+}
+
