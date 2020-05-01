@@ -154,59 +154,9 @@
   }
 
   &--audio {
-    audio {
-      display: none;
-    }
-
     #{$message}__bubble {
       position: relative;
       overflow: hidden;
-    }
-
-    #{$message}__audio {
-      width: 240px;
-
-      &-info {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      &-btn {
-        z-index: 1;
-
-        button {
-          width: 28px;
-          height: 28px;
-          border: none;
-          border-radius: 50%;
-          background: $dark-blue;
-          padding: 0;
-
-          img {
-            padding: 5px;
-            width: 25px;
-            height: 28px;
-          }
-        }
-      }
-
-      &-duration {
-        font-size: 12px;
-        color: $white;
-        opacity: 0.5;
-        font-weight: 500;
-      }
-
-      &-progress {
-        display: block;
-        height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        background: rgba($light-blue, 0.2);
-        transition: width 0.3s ease;
-      }
     }
   }
 }
