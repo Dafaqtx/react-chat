@@ -60,7 +60,7 @@ Message.propTypes = {
   avatar: PropTypes.string,
   user: PropTypes.object,
   text: PropTypes.string,
-  date: PropTypes.number,
+  date: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   attachments: PropTypes.array,
   audioFile: PropTypes.string,
   isMine: PropTypes.bool,

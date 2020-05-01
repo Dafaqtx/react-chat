@@ -15,7 +15,9 @@
         &-header {
             display: flex;
             justify-content: space-between;
-            padding: 20px;
+            padding: 22px 20px;
+            border-bottom: 1px solid #f7f7f7;
+            margin-bottom: 20px;
         }
 
         &-list {
@@ -27,11 +29,10 @@
         &-search {
             padding: 0 20px;
 
-            ant-input {
+            .ant-input-search,
+            .ant-input {
                 background: #f7f8f9;
                 border: 0;
-                height: 38px;
-                padding: 4px 11px 6px;
             }
         }
 
@@ -56,6 +57,58 @@
 
     &__dialog {
         flex: 1;
+
+        &-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 12px 11px 12px;
+            justify-content: space-between;
+            border-bottom: 1px solid #f7f7f7;
+            
+            &-name {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: 500;
+            }
+
+        }
+        
+        &-center {
+            text-align: center;
+
+            .status {
+                font-size: 12px;
+                display: inline-block;
+                opacity: 0.5;
+                position: relative;
+
+                &::before {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: 5px;
+                    left: -10px;
+                    width: 6px;
+                    height: 6px;
+                    border-radius: 50%;
+                    background: $grey;
+                }
+
+                &--online {
+                    &::before {
+                        background: green;
+                    }
+                }
+            }
+        }
+
+        &-actions {
+            cursor: pointer;
+        }
+
+        &-messages {
+            padding: 20px;
+        }
     }
 }
 
