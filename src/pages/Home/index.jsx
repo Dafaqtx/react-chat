@@ -6,46 +6,34 @@ import './Home.scss'
 
 const Home = () => {
 
-  const items = [
+  const messages = [ 
     {
+      id: 1,
+      text: 'Lorem ipsum do sole abre librum, Lorem ipsum do sole abre librum',
+      createdAt: new Date(),
+      unreaded: 2,
       user: {
         avatar: 'https://www.visitsarasota.com/sites/default/files/styles/listing_node_full/public/mmg_lfef_images/img-academy-156-e1cc497311032f22eae4e66ce77b23f3.jpg',
         fullName: 'Александр Пушкин',
         isOnline: true
-      },
-      message: {
-        text: 'Lorem ipsum do sole abre librum, Lorem ipsum do sole abre librum',
-        createdAt: new Date(),
-        unreaded: 2,
       }
     },
     {
+      id: 2,
+      text: 'Lorem ipsum do sole abre librum, Lorem ipsum do sole abre librum',
+      createdAt: Date.parse('Thu April 30 2020 11:45:51 GMT+0300 (Москва, стандартное время)'),
+      unreaded: 10,
       user: {
         avatar: 'https://www.visitsarasota.com/sites/default/files/styles/listing_node_full/public/mmg_lfef_images/img-academy-156-e1cc497311032f22eae4e66ce77b23f3.jpg',
         fullName: 'Александр Пушкин',
         isOnline: true
-      },
-      message: {
-        text: 'Lorem ipsum do sole abre librum, Lorem ipsum do sole abre librum',
-        createdAt: Date.parse('Thu April 30 2020 11:45:51 GMT+0300 (Москва, стандартное время)'),
-        unreaded: 10,
-      }
-    },
-    {
-      user: {
-        avatar: 'https://www.visitsarasota.com/sites/default/files/styles/listing_node_full/public/mmg_lfef_images/img-academy-156-e1cc497311032f22eae4e66ce77b23f3.jpg',
-        fullName: 'Александр Пушкин',
-      },
-      message: {
-        text: 'Lorem ipsum do sole abre librum, Lorem ipsum do sole abre librum',
-        createdAt: Date.parse('Wed April 29 2020 09:45:51 GMT+0300 (Москва, стандартное время)'),
-        unreaded: 0
       }
     }
   ]
+
   return (
     <section className="Home">
-      <DialogList list={items} />
+      <DialogList messages={messages} />
   
       {/* <Message
         avatar="https://www.visitsarasota.com/sites/default/files/styles/listing_node_full/public/mmg_lfef_images/img-academy-156-e1cc497311032f22eae4e66ce77b23f3.jpg"
