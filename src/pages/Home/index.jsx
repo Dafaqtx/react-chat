@@ -6,34 +6,40 @@ import './Home.scss'
 
 const Home = () => {
 
-  const messages = [ 
+  const dialogs = [ 
     {
-      id: 1,
-      text: 'Lorem ipsum do sole abre librum, Lorem ipsum do sole abre librum',
-      createdAt: new Date(),
-      unreaded: 2,
-      user: {
-        avatar: 'https://www.visitsarasota.com/sites/default/files/styles/listing_node_full/public/mmg_lfef_images/img-academy-156-e1cc497311032f22eae4e66ce77b23f3.jpg',
-        fullName: 'Александр Пушкин',
-        isOnline: true
+      _id: Math.random(),
+      message: {
+        id: 1,
+        text: 'Lorem ipsum do sole abre librum, Lorem ipsum do sole abre librum',
+        createdAt: new Date(),
+        unreaded: 2,
+        user: {
+          avatar: 'https://www.visitsarasota.com/sites/default/files/styles/listing_node_full/public/mmg_lfef_images/img-academy-156-e1cc497311032f22eae4e66ce77b23f3.jpg',
+          fullName: 'Александр Пушкин',
+          isOnline: true
+        }
       }
     },
     {
-      id: 2,
-      text: 'Lorem ipsum do sole abre librum, Lorem ipsum do sole abre librum',
-      createdAt: Date.parse('Thu April 30 2020 11:45:51 GMT+0300 (Москва, стандартное время)'),
-      unreaded: 10,
-      user: {
-        avatar: 'https://www.visitsarasota.com/sites/default/files/styles/listing_node_full/public/mmg_lfef_images/img-academy-156-e1cc497311032f22eae4e66ce77b23f3.jpg',
-        fullName: 'Александр Пушкин',
-        isOnline: true
+      _id: Math.random() * 1000 / 15,
+      message: {
+        id: 2,
+        text: 'Lorem ipsum do sole abre librum, Lorem ipsum do sole abre librum',
+        createdAt: Date.parse('Thu April 30 2020 11:45:51 GMT+0300 (Москва, стандартное время)'),
+        unreaded: 10,
+        user: {
+          avatar: 'https://www.visitsarasota.com/sites/default/files/styles/listing_node_full/public/mmg_lfef_images/img-academy-156-e1cc497311032f22eae4e66ce77b23f3.jpg',
+          fullName: 'Александр Пушкин',
+          isOnline: true
+        }
       }
     }
   ]
 
   return (
     <section className="Home">
-      <DialogList messages={messages} />
+      <DialogList dialogs={dialogs} />
   
       {/* <Message
         avatar="https://www.visitsarasota.com/sites/default/files/styles/listing_node_full/public/mmg_lfef_images/img-academy-156-e1cc497311032f22eae4e66ce77b23f3.jpg"

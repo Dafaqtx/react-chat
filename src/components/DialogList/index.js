@@ -4,15 +4,12 @@ import DialogItem from '../DialogItem'
 
 import './DialogList.scss'
 
-const DialogList = ({ messages }) => {
-  console.log(messages.map(m => m))
-  return (
-    <div className="DialogList">
-      {messages.map(message => (
-        <DialogItem data={message} key={message.id} />
-      ))}
-    </div>
-  )
-}
+const DialogList = ({ dialogs }) => (
+  <div className="DialogList">
+    {dialogs.map(dialog => (
+      <DialogItem data={dialog.message} key={dialog._id} />
+    ))}
+  </div>
+)
 
 export default DialogList
