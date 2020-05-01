@@ -12,6 +12,7 @@ const Message = ({
   text,
   date,
   attachments,
+  audioFile,
   isMine,
   isReaded,
   isTyping,
@@ -21,6 +22,7 @@ const Message = ({
       className={classNames('Message', {
         'Message--my': isMine,
         'Message--typing': isTyping,
+        'Message--audio': audioFile !== '',
         'Message--image': attachments.length === 1,
       })}>
       <div className="Message__avatar">
@@ -28,7 +30,7 @@ const Message = ({
       </div>
       <div className="Message__info">
         <div className="Message__content">
-          {(text || isTyping) && (
+          {(audioFile || text || isTyping) && (
             <div className="Message__bubble">
               {text && <p className="Message__text">{text}</p>}
               {isTyping && (
@@ -38,6 +40,7 @@ const Message = ({
                   <span></span>
                 </div>
               )}
+              {audioFile && '123'}
             </div>
           )}
           {attachments && (
@@ -63,6 +66,7 @@ Message.propTypes = {
   text: PropTypes.string,
   date: PropTypes.number,
   attachments: PropTypes.array,
+  audioFile: PropTypes.string,
   isMine: PropTypes.bool,
   isReaded: PropTypes.bool,
   isTyping: PropTypes.bool,
@@ -71,6 +75,7 @@ Message.propTypes = {
 Message.defaultProps = {
   user: {},
   attachments: [],
+  audioFile: '',
   isMine: false,
   isReaded: false,
   isTyping: false,

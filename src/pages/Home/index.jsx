@@ -61,6 +61,11 @@ const Home = () => {
       />
       <Message
         avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+        date={Date.parse('Thu Apr 30 2020 15:41:33')}
+        audioFile="https://notificationsounds.com/soundfiles/069059b7ef840f0c74a814ec9237b6ec/file-de_vuvuzela-power-down.mp3"
+      />
+      <Message
+        avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
         text="Всё норм! Флот построили на Лауре. Галлов добили после вашего нападения. Спс! 🔥"
         date={Date.parse('Thu Apr 30 2020 15:41:33')}
         isMine
