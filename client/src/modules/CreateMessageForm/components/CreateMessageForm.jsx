@@ -12,6 +12,7 @@ import {
 import './CreateMessageForm.scss'
 
 const CreateMessageForm = () => {
+
   const uploaderProps = {
     action: '/upload.do',
     accept: 'jpg, jpeg, png',
@@ -32,6 +33,7 @@ const CreateMessageForm = () => {
       console.log('onError', err);
     },
   };
+
   return (
     <div className="CreateMessageForm">
       <div className="CreateMessageForm__emojy">
