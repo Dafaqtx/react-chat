@@ -4,6 +4,8 @@ import { Empty } from 'antd'
 
 import { MessageItem } from 'components'
 
+import './MessagesList.scss'
+
 const MessagesList = ({ messages }) => {
   return (
     <div className="MessagesList">
