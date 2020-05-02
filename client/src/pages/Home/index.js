@@ -1,9 +1,9 @@
 import React from 'react'
 import { Tooltip, Button } from 'antd'
 import { TeamOutlined, FormOutlined, EllipsisOutlined } from '@ant-design/icons'
-import dialogs from 'data.json'
 
-import { DialogList, MessagesList } from 'components'
+import { Dialogs } from 'containers'
+import { MessagesList } from 'components'
 import { CreateMessageForm } from 'modules'
 
 import './Home.scss'
@@ -23,7 +23,7 @@ const Home = () => {
             </Tooltip>
           </div>
           <div className="Chat__sidebar-dialogs">
-            <DialogList dialogs={dialogs} userId={1} />
+            <Dialogs />
           </div>
         </div>
         <div className="Chat__dialog">
