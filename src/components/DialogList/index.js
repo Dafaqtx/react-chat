@@ -11,7 +11,9 @@ const DialogList = ({ dialogs, userId }) => {
   const handleSearch = value => {
     if (value) {
       setFilteredList(
-        dialogs.filter(el => el.user.fullName.toLowerCase().includes(value))
+        dialogs.filter(el =>
+          el.user.fullName.toLowerCase().includes(value.toLowerCase())
+        )
       )
     } else {
       setFilteredList(dialogs)
