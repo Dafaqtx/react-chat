@@ -1,40 +1,30 @@
-import React, { useEffect} from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Spin } from 'antd';
+import { Spin } from 'antd'
 
 import { messagesActions } from 'redux/actions'
 
 import { MessagesList } from 'components'
 
-const Messages = ({ items, messagesAreLoaded, currentDialogId, getMessagesList }) => {
-
+const Messages = ({ items, isLoading, currentDialogId, getMessagesList }) => {
   useEffect(() => {
     if (currentDialogId) {
       getMessagesList(currentDialogId)
     }
   }, [currentDialogId, getMessagesList])
 
-
-  return (
-    <>
-      {messagesAreLoaded ? (
-        <MessagesList messages={items} />
-      ) : currentDialogId ? (
-        <Spin size="large" />
-      ) : null}
-    </>
-  )
+  return <MessagesList messages={items} isLoading={isLoading} />
 }
 
 Messages.propTypes = {
   items: PropTypes.array.isRequired,
-  messagesAreLoaded: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   currentDialogId: PropTypes.number,
 }
 
 Messages.defaultProps = {
-  currentDialogId: null
+  currentDialogId: null,
 }
 
 export default connect(({ messages }) => messages, messagesActions)(Messages)

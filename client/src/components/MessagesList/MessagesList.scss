@@ -1,7 +1,8 @@
 .MessagesList {
   height: 100%;
 
-  .ant-empty {
+  .ant-empty,
+  .ant-spin {
     display: flex;
     align-items: center;
     justify-content: center;
