@@ -1,0 +1,18 @@
+dialogs: {
+    _id
+    author
+    partner
+    createdAt
+    updatedAt
+}
+
+messages: {
+    _id
+    author
+    partner
+    text
+    dialog
+    unread
+    createdAt
+    updatedAt
+}

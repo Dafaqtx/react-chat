@@ -27,12 +27,12 @@ const DialogItem = ({ dialog, isMine }) => {
         <div className="DialogItem__bottom">
           <p className="DialogItem__text">{dialog.text}</p>
 
-          {dialog.unreaded > 0 ? (
+          {dialog.user.unreaded > 0 ? (
             <span className="DialogItem__counter">
-              {dialog.unreaded > 9 ? '9+' : dialog.unreaded}
+              {dialog.user.unreaded > 9 ? '9+' : dialog.user.unreaded}
             </span>
           ) : (
-            <CheckMarker checked={isMine && dialog.unreaded === 0} />
+            <CheckMarker checked={isMine && dialog.user.unreaded === 0} />
           )}
         </div>
       </div>
