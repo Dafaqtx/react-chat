@@ -7,7 +7,6 @@ import { messagesActions } from 'redux/actions'
 import { MessagesList } from 'components'
 
 const Messages = ({ items, currentDialogId, getMessagesList }) => {
- 
 
   useEffect(() => {
     if (currentDialogId) {
