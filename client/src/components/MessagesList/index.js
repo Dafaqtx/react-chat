@@ -9,15 +9,13 @@ import './MessagesList.scss'
 const MessagesList = ({ messages }) => {
   return (
     <div className="MessagesList">
-      {messages.length ? (
+      {messages.length ? messages.map(message => 
         <MessageItem
-          avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
-          text="Всё норм! Флот построили на Лауре. Галлов добили после вашего нападения. Спс! 🔥"
-          date={'Thu Apr 30 2020 15:41:33'}
-          user={{
-            _id: 123,
-            fullName: 'Valera smirnov',
-          }}
+          avatar={message.user.avatar}
+          text={message.text}
+          date={message.createdAt}
+          user={message.user}
+          key={message._id}
           isReaded
         />
       ) : (

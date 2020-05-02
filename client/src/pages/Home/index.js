@@ -2,8 +2,7 @@ import React from 'react'
 import { Tooltip, Button } from 'antd'
 import { TeamOutlined, FormOutlined, EllipsisOutlined } from '@ant-design/icons'
 
-import { Dialogs } from 'containers'
-import { MessagesList } from 'components'
+import { Dialogs, Messages } from 'containers'
 import { CreateMessageForm } from 'modules'
 
 import './Home.scss'
@@ -45,7 +44,7 @@ const Home = () => {
             </div>
           </div>
           <div className="Chat__dialog-messages">
-            <MessagesList messages={[]} />
+            <Messages />
           </div>
           <div className="Chat__dialog-create">
             <CreateMessageForm />

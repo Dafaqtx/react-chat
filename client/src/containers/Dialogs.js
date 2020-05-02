@@ -6,31 +6,27 @@ import { dialogsActions } from 'redux/actions'
 
 import { DialogList } from 'components'
 
-const Dialogs = ({ dialogs, currentDialog, getDialogList }) => {
-  const [filteredList, setFilteredList] = useState(dialogs)
-  //   const [currentDialog, setCurrentDialog] = useState(initialState)
+const Dialogs = ({ items, currentDialog, getDialogList }) => {
+  const [filteredList, setFilteredList] = useState(items);
+  const [seletedDialog, setSeletedDialog] = useState(currentDialog);
 
   useEffect(() => {
-    if (!dialogs.length) {
+    if (!items.length) {
       getDialogList()
     }
-    setFilteredList(dialogs)
-  }, [dialogs, getDialogList])
+    setFilteredList(items)
+  }, [items, getDialogList])
 
   const handleSearch = value => {
     if (value) {
       setFilteredList(
-        dialogs.filter(el =>
+        items.filter(el =>
           el.user.fullName.toLowerCase().includes(value.toLowerCase())
         )
       )
     } else {
-      setFilteredList(dialogs)
+      setFilteredList(items)
     }
-  }
-
-  const handleSelectDialog = id => {
-    console.log(currentDialog)
   }
 
   return (
@@ -38,13 +34,13 @@ const Dialogs = ({ dialogs, currentDialog, getDialogList }) => {
       dialogs={filteredList}
       userId={1}
       onSearch={handleSearch}
-      onSelectDialog={handleSelectDialog}
+      onSelectDialog={setSeletedDialog}
     />
   )
 }
 
 Dialogs.propTypes = {
-  dialogs: PropTypes.array.isRequired,
+  items: PropTypes.array.isRequired,
 }
 
 export default connect(({ dialogs }) => dialogs, dialogsActions)(Dialogs)

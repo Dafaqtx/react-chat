@@ -15,15 +15,15 @@ const DialogList = ({ dialogs, userId, onSearch, onSelectDialog }) => {
         />
       </div>
 
-      {dialogs.length ? (
-        dialogs.map(dialog => (
+      {dialogs.length ? 
+        dialogs.map(dialog => 
           <DialogItem
             dialog={dialog}
             key={dialog._id}
             isMine={dialog.user._id === userId}
             onSelectDialog={() => onSelectDialog(dialog._id)}
           />
-        ))
+        
       ) : (
         <Empty
           image={Empty.PRESENTED_IMAGE_SIMPLE}
