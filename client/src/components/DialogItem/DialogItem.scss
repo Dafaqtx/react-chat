@@ -6,6 +6,8 @@
   padding: 15px 20px;
   cursor: pointer;
   transition: all 0.3s ease;
+  border: none;
+  background: $white;
 
   &.active,
   &:hover {

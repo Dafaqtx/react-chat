@@ -5,9 +5,9 @@ import { Avatar, Time, CheckMarker } from 'components'
 
 import './DialogItem.scss'
 
-const DialogItem = ({ dialog, isMine }) => {
+const DialogItem = ({ dialog, isMine, onSelectDialog }) => {
   return (
-    <div className="DialogItem">
+    <button type="button" className="DialogItem" onClick={onSelectDialog}>
       <div
         className={classNames('DialogItem__avatar', {
           'DialogItem__avatar--online': dialog.user.isOnline,
@@ -36,7 +36,7 @@ const DialogItem = ({ dialog, isMine }) => {
           )}
         </div>
       </div>
-    </div>
+    </button>
   )
 }
 
