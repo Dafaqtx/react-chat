@@ -1,6 +1,6 @@
 @import '~styles/variables';
 
-.Message {
+.MessageItem {
   $message: &;
   display: flex;
   max-width: 500px;
@@ -44,7 +44,7 @@
       margin-bottom: 15px;
       flex-direction: row-reverse;
     }
-    
+
     .Avatar {
       margin-bottom: 15px;
       flex-direction: row-reverse;

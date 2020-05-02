@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Input } from 'antd'
+import { Empty, Input } from 'antd'
 
 import DialogItem from '../DialogItem'
 
@@ -29,13 +29,20 @@ const DialogList = ({ dialogs, userId }) => {
         />
       </div>
 
-      {filteredList.map(dialog => (
-        <DialogItem
-          dialog={dialog}
-          key={dialog._id}
-          isMine={dialog.user._id === userId}
+      {filteredList.length ? (
+        filteredList.map(dialog => (
+          <DialogItem
+            dialog={dialog}
+            key={dialog._id}
+            isMine={dialog.user._id === userId}
+          />
+        ))
+      ) : (
+        <Empty
+          image={Empty.PRESENTED_IMAGE_SIMPLE}
+          description="Диалогов не найдено"
         />
-      ))}
+      )}
     </div>
   )
 }

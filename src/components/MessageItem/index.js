@@ -11,9 +11,9 @@ import {
   Time,
 } from 'components'
 
-import './Message.scss'
+import './MessageItem.scss'
 
-const Message = ({
+const MessageItem = ({
   avatar,
   user,
   text,
@@ -26,19 +26,19 @@ const Message = ({
 }) => {
   return (
     <div
-      className={classNames('Message', {
-        'Message--my': isMine,
-        'Message--typing': isTyping,
-        'Message--audio': audioFile !== '',
-        'Message--image': attachments.length === 1,
+      className={classNames('MessageItem', {
+        'MessageItem--my': isMine,
+        'MessageItem--typing': isTyping,
+        'MessageItem--audio': audioFile !== '',
+        'MessageItem--image': attachments.length === 1,
       })}>
       <Avatar src={avatar} user={user} />
 
-      <div className="Message__info">
-        <div className="Message__content">
+      <div className="MessageItem__info">
+        <div className="MessageItem__content">
           {(audioFile || text || isTyping) && (
-            <div className="Message__bubble">
-              {text && <p className="Message__text">{text}</p>}
+            <div className="MessageItem__bubble">
+              {text && <p className="MessageItem__text">{text}</p>}
 
               {isTyping && <MessageTyping />}
 
@@ -56,7 +56,7 @@ const Message = ({
   )
 }
 
-Message.propTypes = {
+MessageItem.propTypes = {
   avatar: PropTypes.string,
   user: PropTypes.object,
   text: PropTypes.string,
@@ -68,7 +68,7 @@ Message.propTypes = {
   isTyping: PropTypes.bool,
 }
 
-Message.defaultProps = {
+MessageItem.defaultProps = {
   user: {},
   attachments: [],
   audioFile: '',
@@ -77,4 +77,4 @@ Message.defaultProps = {
   isTyping: false,
 }
 
-export default Message
+export default MessageItem
