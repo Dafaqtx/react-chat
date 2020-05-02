@@ -1,5 +1,6 @@
 const initialState = {
   items: [],
+  dialogsAreLoaded: false,
   currentDialog: null,
 }
 
@@ -8,6 +9,7 @@ export default (state = initialState, action) => {
     case 'DIALOGS:SET_LIST':
       return {
         ...state,
+        dialogsAreLoaded: true,
         items: action.payload,
       }
     case 'DIALOGS:SET_CURRENT_DIALOG':

@@ -1,5 +1,6 @@
 const initialState = {
     items: [],
+    messagesAreLoaded: false
   }
   
   export default (state = initialState, action) => {
@@ -7,6 +8,7 @@ const initialState = {
       case 'MESSAGES:SET_LIST':
         return {
           ...state,
+          messagesAreLoaded: true,
           items: action.payload,
         }
   
