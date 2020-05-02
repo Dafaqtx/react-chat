@@ -6,14 +6,14 @@ import { messagesActions } from 'redux/actions'
 
 import { MessagesList } from 'components'
 
-const Messages = ({ items, getMessagesList }) => {
+const Messages = ({ items, currentDialogId, getMessagesList }) => {
  
 
   useEffect(() => {
-    if (!items.length) {
-      getMessagesList()
+    if (currentDialogId) {
+      getMessagesList(currentDialogId)
     }
-  }, [items, getMessagesList])
+  }, [currentDialogId, getMessagesList])
 
   return (
     <MessagesList messages={items} />
@@ -22,6 +22,7 @@ const Messages = ({ items, getMessagesList }) => {
 
 Messages.propTypes = {
   items: PropTypes.array.isRequired,
+  currentDialogId: PropTypes.number.isRequired,
 }
 
 export default connect(({ messages }) => messages, messagesActions)(Messages)

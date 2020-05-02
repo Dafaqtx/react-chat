@@ -6,9 +6,8 @@ import { dialogsActions } from 'redux/actions'
 
 import { DialogList } from 'components'
 
-const Dialogs = ({ items, currentDialog, getDialogList }) => {
+const Dialogs = ({ items, setCurrentDialogId, getDialogList }) => {
   const [filteredList, setFilteredList] = useState(items);
-  const [seletedDialog, setSeletedDialog] = useState(currentDialog);
 
   useEffect(() => {
     if (!items.length) {
@@ -34,7 +33,7 @@ const Dialogs = ({ items, currentDialog, getDialogList }) => {
       dialogs={filteredList}
       userId={1}
       onSearch={handleSearch}
-      onSelectDialog={setSeletedDialog}
+      onSelectDialog={setCurrentDialogId}
     />
   )
 }

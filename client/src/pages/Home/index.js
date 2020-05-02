@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Tooltip, Button } from 'antd'
 import { TeamOutlined, FormOutlined, EllipsisOutlined } from '@ant-design/icons'
 
@@ -8,6 +8,8 @@ import { CreateMessageForm } from 'modules'
 import './Home.scss'
 
 const Home = () => {
+  const [currentDialogId, setCurrentDialogId] = useState(null)
+  
   return (
     <section className="Home">
       <div className="Chat">
@@ -22,7 +24,7 @@ const Home = () => {
             </Tooltip>
           </div>
           <div className="Chat__sidebar-dialogs">
-            <Dialogs />
+            <Dialogs setCurrentDialogId={setCurrentDialogId}/>
           </div>
         </div>
         <div className="Chat__dialog">
@@ -44,7 +46,7 @@ const Home = () => {
             </div>
           </div>
           <div className="Chat__dialog-messages">
-            <Messages />
+            <Messages currentDialogId={currentDialogId}/>
           </div>
           <div className="Chat__dialog-create">
             <CreateMessageForm />
