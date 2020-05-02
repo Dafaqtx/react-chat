@@ -1,36 +1,22 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Empty, Input } from 'antd'
 
 import DialogItem from '../DialogItem'
 
 import './DialogList.scss'
 
-const DialogList = ({ dialogs, userId }) => {
-  const [filteredList, setFilteredList] = useState(dialogs)
-
-  const handleSearch = value => {
-    if (value) {
-      setFilteredList(
-        dialogs.filter(el =>
-          el.user.fullName.toLowerCase().includes(value.toLowerCase())
-        )
-      )
-    } else {
-      setFilteredList(dialogs)
-    }
-  }
-
+const DialogList = ({ dialogs, userId, onSearch }) => {
   return (
     <div className="DialogList">
       <div className="DialogList__search">
         <Input.Search
           placeholder="Поиск среди контактов"
-          onChange={e => handleSearch(e.target.value)}
+          onChange={e => onSearch(e.target.value)}
         />
       </div>
 
-      {filteredList.length ? (
-        filteredList.map(dialog => (
+      {dialogs.length ? (
+        dialogs.map(dialog => (
           <DialogItem
             dialog={dialog}
             key={dialog._id}
