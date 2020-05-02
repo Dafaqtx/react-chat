@@ -13,11 +13,11 @@ const Messages = ({ items, isLoading, currentDialogId, getMessagesList }) => {
     if (currentDialogId) {
       getMessagesList(currentDialogId)
     }
-  }, [currentDialogId])
+  }, [getMessagesList, currentDialogId])
 
   useEffect(() => {
     messageScrollRef.current.scrollTo(0, 999999)
-  }, [items])
+  }, [items, messageScrollRef])
 
   return (
     <MessagesList
