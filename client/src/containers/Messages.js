@@ -1,20 +1,31 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, createRef } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Spin } from 'antd'
 
 import { messagesActions } from 'redux/actions'
 
 import { MessagesList } from 'components'
 
 const Messages = ({ items, isLoading, currentDialogId, getMessagesList }) => {
+  const messageScrollRef = createRef()
+
   useEffect(() => {
     if (currentDialogId) {
       getMessagesList(currentDialogId)
     }
-  }, [currentDialogId, getMessagesList])
+  }, [currentDialogId])
 
-  return <MessagesList messages={items} isLoading={isLoading} />
+  useEffect(() => {
+    messageScrollRef.current.scrollTo(0, 999999)
+  }, [items])
+
+  return (
+    <MessagesList
+      messages={items}
+      isLoading={isLoading}
+      messageScrollRef={messageScrollRef}
+    />
+  )
 }
 
 Messages.propTypes = {
