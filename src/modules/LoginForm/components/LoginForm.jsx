@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Form } from 'antd'
-import {validateField} from 'utils/helpers'
+import { validateField } from 'utils/helpers'
 
 import { Block, Button, Input } from 'components'
 
@@ -14,7 +14,6 @@ const LoginForm = ({
   handleBlur,
   handleSubmit,
 }) => {
- 
   return (
     <div>
       <div className="Auth__header">
@@ -27,8 +26,7 @@ const LoginForm = ({
             name="name"
             validateStatus={validateField('name', touched, errors)}
             help={touched.name ? errors.name : null}
-            hasFeedback
-           >
+            hasFeedback>
             <Input
               placeholder="Имя"
               size="large"
@@ -41,12 +39,11 @@ const LoginForm = ({
             name="password"
             validateStatus={validateField('password', touched, errors)}
             help={touched.password ? errors.password : null}
-            hasFeedback
-          >
-            <Input 
-              type="password" 
-              placeholder="Пароль" 
-              size="large" 
+            hasFeedback>
+            <Input
+              type="password"
+              placeholder="Пароль"
+              size="large"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.password}
@@ -54,7 +51,11 @@ const LoginForm = ({
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" size="large" disabled={isSubmitting}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              size="large"
+              disabled={isSubmitting}>
               Войти
             </Button>
           </Form.Item>

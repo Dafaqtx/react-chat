@@ -1,0 +1,48 @@
+.CreateMessageForm {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+
+  &__emojy {
+    position: absolute;
+    z-index: 1;
+    left: 1px;
+
+    .ant-btn-icon-only {
+      border: none;
+    }
+  }
+
+  &__field {
+    flex: 1;
+
+    .ant-input {
+      padding: 10px 0;
+      padding-left: 40px;
+      padding-right: 130px;
+      border-radius: 10px;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    z-index: 1;
+    position: absolute;
+    right: 1px;
+
+    button.ant-btn-icon-only {
+      border: none;
+      margin-right: 3px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      .anticon {
+        font-size: 20px;
+      }
+    }
+  }
+}

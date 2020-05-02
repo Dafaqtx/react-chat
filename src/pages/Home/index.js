@@ -1,9 +1,10 @@
 import React from 'react'
-import { Input } from 'antd'
+import { Input, Tooltip, Button } from 'antd'
 import { TeamOutlined, FormOutlined, EllipsisOutlined } from '@ant-design/icons'
 import dialogs from 'data.json'
 
 import { DialogList, Message } from 'components'
+import { CreateMessageForm } from 'modules'
 
 import './Home.scss'
 
@@ -17,7 +18,9 @@ const Home = () => {
               <TeamOutlined />
               <span>Спиоск диалогов</span>
             </div>
-            <FormOutlined />
+            <Tooltip title="Создать диалог">
+              <Button shape="circle" icon={<FormOutlined />} />
+            </Tooltip>
           </div>
           <div className="Chat__sidebar-search">
             <Input.Search
@@ -39,7 +42,12 @@ const Home = () => {
               </div>
             </div>
             <div className="Chat__dialog-actions">
-              <EllipsisOutlined style={{ fontSize: 24 }} />
+              <Tooltip title="Действия">
+                <Button
+                  shape="circle"
+                  icon={<EllipsisOutlined style={{ fontSize: 24 }} />}
+                />
+              </Tooltip>
             </div>
           </div>
           <div className="Chat__dialog-messages">
@@ -64,7 +72,134 @@ const Home = () => {
               isMine
               isReaded
             />
+            <Message
+              avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+              text="Всё норм! Флот построили на Лауре. Галлов добили после вашего нападения. Спс! 🔥"
+              date={'Thu Apr 30 2020 15:41:33'}
+              user={{
+                _id: 123,
+                fullName: 'Valera smirnov',
+              }}
+              isReaded
+            />
+            <Message
+              avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+              text="Всё норм! Флот построили на Лауре. Галлов добили после вашего нападения. Спс! 🔥"
+              date={'Thu Apr 30 2020 15:41:33'}
+              user={{
+                _id: 123,
+                fullName: 'Valera smirnov',
+              }}
+              isReaded
+            />
+            <Message
+              avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+              text="Всё норм! Флот построили на Лауре. Галлов добили после вашего нападения. Спс! 🔥"
+              date={'Thu Apr 30 2020 15:41:33'}
+              user={{
+                _id: 321,
+                fullName: 'Kolya Bogomol',
+              }}
+              isMine
+              isReaded
+            />
+            <Message
+              avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+              text="Всё норм! Флот построили на Лауре. Галлов добили после вашего нападения. Спс! 🔥"
+              date={'Thu Apr 30 2020 15:41:33'}
+              user={{
+                _id: 321,
+                fullName: 'Kolya Bogomol',
+              }}
+              isMine
+              isReaded
+            />
+            <Message
+              avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+              text="Всё норм! Флот построили на Лауре. Галлов добили после вашего нападения. Спс! 🔥"
+              date={'Thu Apr 30 2020 15:41:33'}
+              user={{
+                _id: 123,
+                fullName: 'Valera smirnov',
+              }}
+              isReaded
+            />
+            <Message
+              avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+              text="Всё норм! Флот построили на Лауре. Галлов добили после вашего нападения. Спс! 🔥"
+              date={'Thu Apr 30 2020 15:41:33'}
+              user={{
+                _id: 321,
+                fullName: 'Kolya Bogomol',
+              }}
+              isMine
+              isReaded
+            />
+            <Message
+              avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+              text="Всё норм! Флот построили на Лауре. Галлов добили после вашего нападения. Спс! 🔥"
+              date={'Thu Apr 30 2020 15:41:33'}
+              user={{
+                _id: 123,
+                fullName: 'Valera smirnov',
+              }}
+              isReaded
+            />
+            <Message
+              avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+              text="Всё норм! Флот построили на Лауре. Галлов добили после вашего нападения. Спс! 🔥"
+              date={'Thu Apr 30 2020 15:41:33'}
+              user={{
+                _id: 321,
+                fullName: 'Kolya Bogomol',
+              }}
+              isMine
+              isReaded
+            />
+            <Message
+              avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+              text="Всё норм! Флот построили на Лауре. Галлов добили после вашего нападения. Спс! 🔥"
+              date={'Thu Apr 30 2020 15:41:33'}
+              user={{
+                _id: 123,
+                fullName: 'Valera smirnov',
+              }}
+              isReaded
+            />
+            <Message
+              avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+              text="Всё норм! Флот построили на Лауре. Галлов добили после вашего нападения. Спс! 🔥"
+              date={'Thu Apr 30 2020 15:41:33'}
+              user={{
+                _id: 321,
+                fullName: 'Kolya Bogomol',
+              }}
+              isMine
+              isReaded
+            />
+            <Message
+              avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+              text="Всё норм! Флот построили на Лауре. Галлов добили после вашего нападения. Спс! 🔥"
+              date={'Thu Apr 30 2020 15:41:33'}
+              user={{
+                _id: 321,
+                fullName: 'Kolya Bogomol',
+              }}
+              isMine
+              isReaded
+            />
+            <Message
+              avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png"
+              text="Всё норм! Флот построили на Лауре. Галлов добили после вашего нападения. Спс! 🔥"
+              date={'Thu Apr 30 2020 15:41:33'}
+              user={{
+                _id: 123,
+                fullName: 'Valera smirnov',
+              }}
+              isReaded
+            />
           </div>
+          <CreateMessageForm />
         </div>
       </div>
     </section>

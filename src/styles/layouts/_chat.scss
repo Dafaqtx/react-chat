@@ -1,114 +1,127 @@
 @import '../variables';
 
 .Chat {
-    display: flex;
-    background: $white;
-    width: 1140px;
-    margin: 0 auto;
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.04204);
-    height: 100%;
+  display: flex;
+  background: $white;
+  width: 1140px;
+  margin: 0 auto;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.04204);
+  height: 100%;
 
-    &__sidebar {
-        width: 320px;
-        border-right: 1px solid #f7f8f9;
+  &__sidebar {
+    width: 320px;
+    border-right: 1px solid #f7f8f9;
 
-        &-header {
-            display: flex;
-            justify-content: space-between;
-            padding: 22px 20px;
-            border-bottom: 1px solid #f7f7f7;
-            margin-bottom: 20px;
-        }
+    &-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border-bottom: 1px solid #f7f7f7;
 
-        &-list {
-            span[role="img"] {
-                margin-right: 5px;
-            }
-        }
-
-        &-search {
-            padding: 0 20px;
-
-            .ant-input-search,
-            .ant-input {
-                background: #f7f8f9;
-                border: 0;
-            }
-        }
-
-        &-dialogs {
-            .DialogList {
-                .DialogItem {
-                    padding: 15px 20px;
-                    cursor: pointer;
-                    transition: all .3s ease;
-                    
-                    &.active,
-                    &:hover {
-                        background-color: #f3f7ff;
-                        transition: all .3s ease;
-                    }
-                }
-            }
-        }
-
-        
+      .ant-btn-icon-only {
+        border: none;
+      }
     }
 
-    &__dialog {
-        flex: 1;
-
-        &-header {
-            display: flex;
-            align-items: center;
-            padding: 12px 12px 11px 12px;
-            justify-content: space-between;
-            border-bottom: 1px solid #f7f7f7;
-            
-            &-name {
-                display: block;
-                margin-bottom: 5px;
-                font-weight: 500;
-            }
-
-        }
-        
-        &-center {
-            text-align: center;
-
-            .status {
-                font-size: 12px;
-                display: inline-block;
-                opacity: 0.5;
-                position: relative;
-
-                &::before {
-                    content: '';
-                    display: block;
-                    position: absolute;
-                    top: 5px;
-                    left: -10px;
-                    width: 6px;
-                    height: 6px;
-                    border-radius: 50%;
-                    background: $grey;
-                }
-
-                &--online {
-                    &::before {
-                        background: green;
-                    }
-                }
-            }
-        }
-
-        &-actions {
-            cursor: pointer;
-        }
-
-        &-messages {
-            padding: 20px;
-        }
+    &-list {
+      span[role='img'] {
+        margin-right: 5px;
+      }
     }
+
+    &-search {
+      padding: 20px;
+
+      .ant-input-search,
+      .ant-input {
+        background: #f7f8f9;
+        border: 0;
+      }
+    }
+
+    &-dialogs {
+      height: calc(100% - 140px);
+      overflow-y: auto;
+
+      .DialogList {
+        .DialogItem {
+          padding: 15px 20px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+
+          &.active,
+          &:hover {
+            background-color: #f3f7ff;
+            transition: all 0.3s ease;
+          }
+        }
+      }
+    }
+  }
+
+  &__dialog {
+    flex: 1;
+
+    &-header {
+      display: flex;
+      align-items: center;
+      padding: 12px 12px 11px 12px;
+      justify-content: space-between;
+      border-bottom: 1px solid #f7f7f7;
+
+      .ant-btn-icon-only {
+        border: none;
+
+        .anticon {
+          display: flex;
+        }
+      }
+
+      &-name {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+      }
+    }
+
+    &-center {
+      text-align: center;
+
+      .status {
+        font-size: 12px;
+        display: inline-block;
+        opacity: 0.5;
+        position: relative;
+
+        &::before {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 5px;
+          left: -10px;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: $grey;
+        }
+
+        &--online {
+          &::before {
+            background: green;
+          }
+        }
+      }
+    }
+
+    &-actions {
+      cursor: pointer;
+    }
+
+    &-messages {
+      padding: 20px;
+      height: calc(100% - 110px);
+      overflow-y: auto;
+    }
+  }
 }
-
