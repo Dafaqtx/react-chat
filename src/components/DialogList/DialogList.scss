@@ -1,7 +1,17 @@
 @import '~styles/variables';
 
 .DialogList {
-    display: flex;
-    flex-direction: column;
-    max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+
+  &__search {
+    padding: 20px;
+
+    .ant-input-search,
+    .ant-input {
+      background: #f7f8f9;
+      border: 0;
+    }
+  }
 }

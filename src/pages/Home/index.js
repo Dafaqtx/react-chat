@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input, Tooltip, Button } from 'antd'
+import { Tooltip, Button } from 'antd'
 import { TeamOutlined, FormOutlined, EllipsisOutlined } from '@ant-design/icons'
 import dialogs from 'data.json'
 
@@ -21,12 +21,6 @@ const Home = () => {
             <Tooltip title="Создать диалог">
               <Button shape="circle" icon={<FormOutlined />} />
             </Tooltip>
-          </div>
-          <div className="Chat__sidebar-search">
-            <Input.Search
-              placeholder="Поиск среди контактов"
-              onSearch={value => console.log(value)}
-            />
           </div>
           <div className="Chat__sidebar-dialogs">
             <DialogList dialogs={dialogs} userId={1} />
@@ -199,7 +193,9 @@ const Home = () => {
               isReaded
             />
           </div>
-          <CreateMessageForm />
+          <div className="Chat__dialog-create">
+            <CreateMessageForm />
+          </div>
         </div>
       </div>
     </section>

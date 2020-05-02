@@ -30,33 +30,9 @@
       }
     }
 
-    &-search {
-      padding: 20px;
-
-      .ant-input-search,
-      .ant-input {
-        background: #f7f8f9;
-        border: 0;
-      }
-    }
-
     &-dialogs {
-      height: calc(100% - 140px);
+      height: calc(100% - 65px);
       overflow-y: auto;
-
-      .DialogList {
-        .DialogItem {
-          padding: 15px 20px;
-          cursor: pointer;
-          transition: all 0.3s ease;
-
-          &.active,
-          &:hover {
-            background-color: #f3f7ff;
-            transition: all 0.3s ease;
-          }
-        }
-      }
     }
   }
 
