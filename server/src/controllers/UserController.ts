@@ -62,12 +62,12 @@ class UserController {
   };
 
   create = (req: express.Request, res: express.Response) => {
-    const postData = {
+    const registrationData = {
       email: req.body.email,
       fullname: req.body.fullname,
       password: req.body.password,
     };
-    const user = new UserModel(postData);
+    const user = new UserModel(registrationData);
     user
       .save()
       .then((obj: any) => {
@@ -96,7 +96,7 @@ class UserController {
   };
 
   login = (req: express.Request, res: express.Response) => {
-    const postData = {
+    const loginData = {
       email: req.body.email,
       password: req.body.password,
     };
@@ -106,14 +106,14 @@ class UserController {
       return res.status(422).json({ errors: errors.array() });
     }
 
-    UserModel.findOne({ email: postData.email }, (err, user: any) => {
-      if (err) {
+    UserModel.findOne({ email: loginData.email }, (err, user: any) => {
+      if (err || !user) {
         return res.status(404).json({
           message: 'User not found',
         });
       }
 
-      if (bcrypt.compareSync(postData.password, user.password)) {
+      if (bcrypt.compareSync(loginData.password, user.password)) {
         const token = createJWToken(user);
         res.json({
           status: 'success',
