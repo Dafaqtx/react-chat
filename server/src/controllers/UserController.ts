@@ -21,7 +21,7 @@ class UserController {
   //   });
   // }
 
-  getAll(req: express.Request, res: express.Response) {
+  getAll(_, res: express.Response) {
     UserModel.find({}, (err, users) => {
       if (err) {
         return res.status(409).json({
@@ -62,8 +62,26 @@ class UserController {
     });
   };
 
+  findUsers = (req: any, res: express.Response) => {
+    const query: string = req.query.query;
+
+    UserModel.find()
+      .or([
+        { fullname: new RegExp(query, 'i') },
+        { email: new RegExp(query, 'i') },
+      ])
+      .then((users: any) => res.json(users))
+      .catch((err: any) => {
+        return res.status(404).json({
+          status: 'error',
+          message: err,
+        });
+      });
+  };
+
   delete = (req: express.Request, res: express.Response) => {
     const id: string = req.params.id;
+
     UserModel.findOneAndRemove({ _id: id })
       .then(user => {
         if (user) {

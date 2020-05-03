@@ -23,12 +23,13 @@ const createRoutes = (app: express.Express, io: socket.Server) => {
   app.use(updateLastSeen);
 
   app.get('/users/list', User.getAll);
+  app.get('/users/:id', User.show);
   app.get('/users/me', User.getMe);
   app.get('/user/verify', User.verify);
   app.post('/user/signup', registrationValidation, User.create);
   app.post('/user/signin', loginValidation, User.login);
-  app.get('/users/:id', User.show);
   app.delete('/users/:id', User.delete);
+  app.get('/users/find', User.findUsers);
 
   app.get('/dialogs', Dialog.index);
   app.delete('/dialogs/:id', Dialog.delete);
