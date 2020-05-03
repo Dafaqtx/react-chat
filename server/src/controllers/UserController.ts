@@ -2,8 +2,10 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import socket from 'socket.io';
 import { validationResult } from 'express-validator';
+import mailer from '../core/mailer';
 
 import { UserModel } from '../models';
+import { IUser } from '../models/User';
 import { createJWToken } from '../helpers';
 
 class UserController {
@@ -12,14 +14,6 @@ class UserController {
   constructor(io: socket.Server) {
     this.io = io;
   }
-  // TODO: В конструкторе следить за методоами сокета относящихся к юзеру и вызывать соотв. методы
-  // constructor() {
-  //   io.on("connection", function(socket: any) {
-  //     socket.on('', function(obj: any) {
-  //       // Вызывать метод для создания сущности
-  //     })
-  //   });
-  // }
 
   getAll(_, res: express.Response) {
     UserModel.find({}, (err, users) => {
@@ -50,7 +44,7 @@ class UserController {
   };
 
   getMe = (req: any, res: express.Response) => {
-    const id: string = req.user._id;
+    const id: string = req.user && req.user._id;
 
     UserModel.findById(id, (err, user: any) => {
       if (err || !user) {
@@ -116,6 +110,21 @@ class UserController {
       .save()
       .then((obj: any) => {
         res.json(obj);
+        mailer.sendMail(
+          {
+            from: 'admin@test.com',
+            to: registrationDate.email,
+            subject: 'Подтверждение почты React Chat',
+            html: `Для того, чтобы подтвердить почту, перейдите по <a href="http://localhost:3000/signup/verify?hash=${obj.confirm_hash}">ссылке</a>`,
+          },
+          (err, info) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(info);
+            }
+          }
+        );
       })
       .catch(reason => {
         res.status(500).json({
@@ -169,7 +178,7 @@ class UserController {
       return res.status(422).json({ errors: errors.array() });
     }
 
-    UserModel.findOne({ email: loginData.email }, (err, user: any) => {
+    UserModel.findOne({ email: loginData.email }, (err, user: IUser) => {
       if (err || !user) {
         return res.status(404).json({
           message: 'User not found',
