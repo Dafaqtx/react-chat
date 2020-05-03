@@ -2,7 +2,10 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import socket from 'socket.io';
 import { updateLastSeen, checkAuth } from '../middleware';
-import { loginValidation } from '../helpers/validations';
+import {
+  loginValidation,
+  registrationValidation,
+} from '../helpers/validations';
 
 import {
   UserController,
@@ -16,15 +19,16 @@ const createRoutes = (app: express.Express, io: socket.Server) => {
   const Messages = new MessageController(io);
 
   app.use(bodyParser.json());
-  app.use(updateLastSeen);
   app.use(checkAuth);
+  app.use(updateLastSeen);
 
   app.get('/users/list', User.getAll);
   app.get('/users/me', User.getMe);
+  app.get('/user/verify', User.verify);
+  app.post('/user/signup', registrationValidation, User.create);
+  app.post('/user/signin', loginValidation, User.login);
   app.get('/users/:id', User.show);
   app.delete('/users/:id', User.delete);
-  app.post('/users/registration', User.create);
-  app.post('/users/login', loginValidation, User.login);
 
   app.get('/dialogs', Dialog.index);
   app.delete('/dialogs/:id', Dialog.delete);

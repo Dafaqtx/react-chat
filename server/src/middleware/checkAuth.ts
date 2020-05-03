@@ -1,7 +1,11 @@
 import { verifyJWTToken } from '../helpers';
 
 export default (req: any, res: any, next: any) => {
-  if (req.path === '/users/login' || req.path === '/users/registration') {
+  if (
+    req.path === '/users/signin' ||
+    req.path === '/users/signup' ||
+    req.path === '/users/verify'
+  ) {
     return next();
   }
 

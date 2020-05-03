@@ -11,10 +11,17 @@ class DialogController {
   }
 
   index = (req: any, res: express.Response) => {
-    const authorId = req.user._id;
+    const userId = req.user._id;
 
-    DialogModel.find({ author: authorId })
+    DialogModel.find()
+      .or([{ author: userId }, { partner: userId }])
       .populate(['author', 'partner'])
+      .populate({
+        path: 'lastMessage',
+        populate: {
+          path: 'user',
+        },
+      })
       .exec((err, dialogs) => {
         if (err) {
           return res.status(404).json({
@@ -26,11 +33,12 @@ class DialogController {
   };
 
   create = (req: express.Request, res: express.Response) => {
-    const postData = {
-      author: req.body.author,
+    const createDialogData = {
+      author: req.body._id,
       partner: req.body.partner,
     };
-    const dialog = new DialogModel(postData);
+
+    const dialog = new DialogModel(createDialogData);
 
     dialog
       .save()
@@ -44,7 +52,14 @@ class DialogController {
         message
           .save()
           .then(() => {
-            res.json(dialogObj);
+            dialogObj.lastMessage = message._id;
+            dialogObj.save().then(() => {
+              res.json(dialogObj);
+              this.io.emit('SERVER:DIALOG_CREATED', {
+                ...createDialogData,
+                dialog: dialogObj,
+              });
+            });
           })
           .catch(reason => {
             res.json(reason);
@@ -57,6 +72,7 @@ class DialogController {
 
   delete = (req: express.Request, res: express.Response) => {
     const id: string = req.params.id;
+
     DialogModel.findOneAndRemove({ _id: id })
       .then(dialog => {
         if (dialog) {

@@ -1,7 +1,7 @@
 import express from 'express';
 import socket from 'socket.io';
 
-import { MessageModel } from '../models';
+import { MessageModel, DialogModel } from '../models';
 
 class MessageController {
   io: socket.Server;
@@ -14,8 +14,8 @@ class MessageController {
     const dialogId: string = req.query.dialog;
 
     MessageModel.find({ dialog: dialogId })
-      .populate(['dialog'])
-      .exec((err: any, messages) => {
+      .populate(['dialog', 'user'])
+      .exec((err, messages) => {
         if (err) {
           return res.status(404).json({
             message: 'Messages not found',
@@ -28,25 +28,42 @@ class MessageController {
   create = (req: any, res: express.Response) => {
     const userId = req.user._id;
 
-    const postData = {
+    const creatMessageData = {
       text: req.body.text,
       dialog: req.body.dialog_id,
       user: userId,
     };
 
-    const message = new MessageModel(postData);
+    const message = new MessageModel(creatMessageData);
 
     message
       .save()
       .then((obj: any) => {
-        obj.populate('dialog', (err: any, signal: any) => {
+        obj.populate(['dialog', 'user'], (err: any, message: any) => {
           if (err) {
             return res.status(500).json({
+              status: 'error',
               message: err,
             });
           }
-          res.json(signal);
-          this.io.emit('SERVER:NEW_MESSAGE', signal);
+
+          DialogModel.findOneAndUpdate(
+            { _id: creatMessageData.dialog },
+            { lastMessage: message._id },
+            { upsert: true },
+            err => {
+              if (err) {
+                return res.status(500).json({
+                  status: 'error',
+                  message: err,
+                });
+              }
+            }
+          );
+
+          res.json(message);
+
+          this.io.emit('SERVER:NEW_MESSAGE', message);
         });
       })
       .catch(reason => {
@@ -56,6 +73,7 @@ class MessageController {
 
   delete = (req: express.Request, res: express.Response) => {
     const id: string = req.params.id;
+
     MessageModel.findOneAndRemove({ _id: id })
       .then(message => {
         if (message) {
