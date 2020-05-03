@@ -1,13 +1,21 @@
 import express from 'express';
+import socket from 'socket.io';
+
 import { MessageModel } from '../models';
 
 class MessageController {
-  index(req: express.Request, res: express.Response) {
-    const dialogId: any = req.query.dialog;
+  io: socket.Server;
+
+  constructor(io: socket.Server) {
+    this.io = io;
+  }
+
+  index = (req: express.Request, res: express.Response) => {
+    const dialogId: string = req.query.dialog;
 
     MessageModel.find({ dialog: dialogId })
       .populate(['dialog'])
-      .exec((err, messages) => {
+      .exec((err: any, messages) => {
         if (err) {
           return res.status(404).json({
             message: 'Messages not found',
@@ -15,30 +23,38 @@ class MessageController {
         }
         return res.json(messages);
       });
-  }
+  };
 
-  create(req: express.Request, res: express.Response) {
-    const userId: any = req.query.dialog;
+  create = (req: any, res: express.Response) => {
+    const userId = req.user._id;
 
-    const createMessageData = {
+    const postData = {
       text: req.body.text,
       dialog: req.body.dialog_id,
       user: userId,
     };
 
-    const message = new MessageModel(createMessageData);
+    const message = new MessageModel(postData);
 
     message
       .save()
       .then((obj: any) => {
-        res.json(obj);
+        obj.populate('dialog', (err: any, signal: any) => {
+          if (err) {
+            return res.status(500).json({
+              message: err,
+            });
+          }
+          res.json(signal);
+          this.io.emit('SERVER:NEW_MESSAGE', signal);
+        });
       })
       .catch(reason => {
         res.json(reason);
       });
-  }
+  };
 
-  delete(req: express.Request, res: express.Response) {
+  delete = (req: express.Request, res: express.Response) => {
     const id: string = req.params.id;
     MessageModel.findOneAndRemove({ _id: id })
       .then(message => {
@@ -53,7 +69,7 @@ class MessageController {
           message: `Message not found`,
         });
       });
-  }
+  };
 }
 
 export default MessageController;

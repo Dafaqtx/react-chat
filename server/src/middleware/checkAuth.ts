@@ -1,15 +1,15 @@
 import { verifyJWTToken } from '../helpers';
 
-export default (req: any, res: any, next: () => void) => {
+export default (req: any, res: any, next: any) => {
   if (req.path === '/users/login' || req.path === '/users/registration') {
     return next();
   }
 
-  const token: any = req.headers.token;
+  const token = req.headers.token;
 
   verifyJWTToken(token)
-    .then(user => {
-      req.user = user;
+    .then((user: any) => {
+      req.user = user.data._doc;
       next();
     })
     .catch(err => {
