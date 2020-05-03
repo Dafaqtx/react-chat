@@ -7,7 +7,7 @@ interface ILoginData {
 }
 
 export default (user: ILoginData) => {
-  let token = jwt.sign(
+  const token = jwt.sign(
     {
       data: reduce(
         user,

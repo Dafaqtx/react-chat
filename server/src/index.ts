@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import { config } from 'dotenv';
 import { compose }  from "compose-middleware";
 import { updateLastSeen, checkAuth } from "./middleware";
+import { loginValidation } from './helpers/validations';
 
 import {
   UserController,
@@ -36,7 +37,7 @@ mongoose.connect('mongodb://localhost:27017/chat', {
 app.get('/users/', User.get);
 app.get('/users/:id', User.show);
 app.post('/users/registration', User.create);
-app.post('/users/login', User.login);
+app.post('/users/login', loginValidation, User.login);
 app.delete('/users/:id', User.delete);
 
 app.get('/dialogs', Dialog.index);

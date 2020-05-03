@@ -1,17 +1,18 @@
-import { verifyJWTToken } from "../helpers";
+import { verifyJWTToken } from '../helpers';
 
-export default (req: any, res: any, next: any) => {
-  if (req.path !== "/user/login") {
+export default (req: any, res: any, next: Function) => {
+  if (req.path === '/users/login' || req.path === '/users/registration') {
+    return next();
   }
 
-  const token = req.headers.token;
+  const token: any = req.headers.token;
 
   verifyJWTToken(token)
     .then(user => {
       req.user = user;
       next();
     })
-    .catch(() => {
-      res.status(403).json({ message: "Invalid auth token provided." });
+    .catch(err => {
+      res.status(403).json({ message: err.message });
     });
 };

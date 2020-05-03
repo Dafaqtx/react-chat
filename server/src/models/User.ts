@@ -1,5 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose'
 import { isEmail } from 'validator'
+import { generatePasswordHash } from '../helpers'
 
 export interface IUser extends Document {
   email: string
@@ -43,6 +44,22 @@ const UserSchema = new Schema(
   }
 )
 
-const UserModel = mongoose.model<IUser>('User', UserSchema)
+UserSchema.pre('save', function(next) {
+  const user: any = this;
+  // const user: IUser = this;
+
+  if (!this.isModified('password')) return next();
+
+  generatePasswordHash(user.password)
+    .then(hash => {
+      user.password = String(hash);
+      next();
+    })
+    .catch(err => {
+      next(err);
+    });
+});
+
+const UserModel = mongoose.model<IUser>('User', UserSchema);
 
 export default UserModel
