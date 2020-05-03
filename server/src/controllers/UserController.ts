@@ -15,6 +15,18 @@ class UserController {
     })
   }
 
+  getAll(req: express.Request, res: express.Response) {
+    UserModel.find({}, (err, users) => {
+      if (err) {
+        return res.status(409).json({
+          message: 'Somthing went wrong'
+        })
+      }
+      const userList = users.map(user => ({_id: user._id, email: user.email, fullName: user.fullname}))
+      res.json(userList); 
+    })
+  }
+
   getMe() {
     // TODO: Сделать возвращение инфы о самом себе (аутентификация)
   }

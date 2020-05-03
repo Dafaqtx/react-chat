@@ -25,6 +25,7 @@ mongoose.connect('mongodb://localhost:27017/chat', {
   useUnifiedTopology: true,
 });
 
+app.get('/user/all', User.getAll);
 app.get('/user/:id', User.show);
 app.delete('/user/:id', User.delete);
 app.post('/user/registration', User.create);
@@ -38,7 +39,7 @@ app.get('/messages', Messages.index);
 app.post('/messages', Messages.create);
 app.delete('/messages/:id', Messages.delete);
 
-app.listen(3001, () => 'Server listener on port 3001!');
+app.listen(3001, () => console.log('Server listener on port 3001!'));
 
 // TODO:
 // Sockets: Сделать получение сообщений/я через GET запрос. То есть, когда придет сообщение от сокета
