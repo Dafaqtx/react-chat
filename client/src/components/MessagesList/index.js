@@ -1,33 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Spin, Empty } from 'antd';
+import { Empty } from 'antd';
 
 import { MessageItem } from 'components';
 
 import './MessagesList.scss';
 
-const MessagesList = ({ messages, isLoading, messageScrollRef }) => {
+const MessagesList = ({ messages, messageScrollRef }) => {
   return (
     <div className="MessagesList" ref={messageScrollRef}>
-      {isLoading ? (
-        <Spin size="large" />
-      ) : messages && !isLoading ? (
-        messages.length > 0 ? (
-          messages.map(message => (
-            <MessageItem
-              avatar={message.user.avatar}
-              text={message.text}
-              date={message.createdAt}
-              user={message.user}
-              key={message._id}
-              isReaded
-            />
-          ))
-        ) : (
-          <Empty description="У вас пока нет сообщений" />
-        )
+      {messages.length > 0 ? (
+        messages.map(message => (
+          <MessageItem
+            avatar={message.user.avatar}
+            text={message.text}
+            date={message.createdAt}
+            user={message.user}
+            key={message._id}
+            isReaded
+          />
+        ))
       ) : (
-        <Empty description="Начните диалог" />
+        <Empty description="У вас пока нет сообщений" />
       )}
     </div>
   );

@@ -1,5 +1,6 @@
-import React, { useEffect, createRef } from 'react';
+import React, { useEffect, createRef, Suspense } from 'react';
 import PropTypes from 'prop-types';
+import { Spin } from 'antd';
 import { connect } from 'react-redux';
 
 import { messagesActions } from 'redux/actions';
@@ -16,15 +17,19 @@ const Messages = ({ items, isLoading, currentDialogId, getMessagesList }) => {
   }, [getMessagesList, currentDialogId]);
 
   useEffect(() => {
-    messageScrollRef.current.scrollTo(0, 999999);
+    if (messageScrollRef.current) {
+      messageScrollRef.current.scrollTo(0, 999999);
+    }
   }, [items, messageScrollRef]);
 
   return (
-    <MessagesList
-      messages={items}
-      isLoading={isLoading}
-      messageScrollRef={messageScrollRef}
-    />
+    <>
+      {!isLoading ? (
+        <MessagesList messages={items} messageScrollRef={messageScrollRef} />
+      ) : (
+        <Spin size="large" />
+      )}
+    </>
   );
 };
 
