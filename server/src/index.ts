@@ -1,7 +1,10 @@
 import mongoose from 'mongoose';
 import express from 'express';
 import bodyParser from 'body-parser';
-import dotenv from 'dotenv';
+import { config } from 'dotenv';
+import { compose }  from "compose-middleware";
+import { updateLastSeen, checkAuth } from "./middleware";
+import { loginValidation } from './helpers/validations';
 
 import {
   UserController,
@@ -9,15 +12,21 @@ import {
   MessageController,
 } from './controllers';
 
-const app = express();
-dotenv.config();
+config();
 
-app.use(bodyParser.json());
+const app = express();
+
+app.use(compose([
+  bodyParser.json(),
+  updateLastSeen,
+  checkAuth
+]))
 
 const User = new UserController();
 const Dialog = new DialogController();
 const Messages = new MessageController();
 
+mongoose.set('debug', true);
 mongoose.connect('mongodb://localhost:27017/chat', {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -25,22 +34,18 @@ mongoose.connect('mongodb://localhost:27017/chat', {
   useUnifiedTopology: true,
 });
 
-app.get('/user/:id', User.show);
-app.delete('/user/:id', User.delete);
-app.post('/user/registration', User.create);
-app.post('/user/login', User.login);
+app.get('/users/', User.get);
+app.get('/users/:id', User.show);
+app.post('/users/registration', User.create);
+app.post('/users/login', loginValidation, User.login);
+app.delete('/users/:id', User.delete);
 
 app.get('/dialogs', Dialog.index);
-app.delete('/dialogs/:id', Dialog.delete);
 app.post('/dialogs', Dialog.create);
+app.delete('/dialogs/:id', Dialog.delete);
 
 app.get('/messages', Messages.index);
 app.post('/messages', Messages.create);
 app.delete('/messages/:id', Messages.delete);
 
-app.listen(3001, () => 'Server listener on port 3001!');
-
-// TODO:
-// Sockets: Сделать получение сообщений/я через GET запрос. То есть, когда придет сообщение от сокета
-// то мы посылаем запрос на сервер, чтоыб поулчить последнее сообщение из сервера, а не отправлять
-// всю инфу в самом сокете.
+app.listen(process.env.PORT, () => (`Server running on : http://localhost:${process.env.PORT}`));

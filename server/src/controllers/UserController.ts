@@ -1,10 +1,15 @@
 import express from 'express'
+import { validationResult } from 'express-validator';
+import bcrypt from 'bcrypt';
+
 import { UserModel } from '../models'
 import { IUser } from '../models/User'
+import { createJWToken } from '../helpers';
 
 class UserController {
   show(req: express.Request, res: express.Response) {
     const id: string = req.params.id
+
     UserModel.findById(id, (err, user) => {
       if (err) {
         return res.status(404).json({
@@ -15,14 +20,22 @@ class UserController {
     })
   }
 
-  getMe() {
-    // TODO: Сделать возвращение инфы о самом себе (аутентификация)
+  get(req: express.Request, res: express.Response) {
+    UserModel.find({}, (err, users) => {
+      if (err) {
+        return res.status(409).json({
+          message: 'Something went wrong'
+        })
+      }
+      const userList = users.map(user => ({_id: user._id, email: user.email, fullName: user.fullName}))
+      res.json(userList); 
+    })
   }
 
   create(req: express.Request, res: express.Response) {
     const userRegistrationData = {
       email: req.body.email,
-      fullname: req.body.fullname,
+      fullName: req.body.fullName,
       password: req.body.password,
     }
 
@@ -45,7 +58,7 @@ class UserController {
       .then((user) => {
         if (user) {
           res.json({
-            message: `User ${user.fullname} deleted`,
+            message: `User ${user.fullName} deleted`,
           })
         }
       })
@@ -58,8 +71,13 @@ class UserController {
 
   login(req: express.Request, res: express.Response) {
     const userLoginData = {
-      email: req.body.login,
+      email: req.body.email,
       password: req.body.password,
+    }
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
     }
 
     UserModel.findOne({ email: userLoginData.email }, (err, user: IUser) => {
@@ -67,6 +85,19 @@ class UserController {
         return res.status(404).json({
           message: 'User not found',
         })
+      }
+
+      if (bcrypt.compareSync(userLoginData.password, user.password)) {
+        const token = createJWToken(user);
+        res.json({
+          status: 'success',
+          token,
+        });
+      } else {
+        res.json({
+          status: 'error',
+          message: 'Incorrect password or email',
+        });
       }
     })
   }
