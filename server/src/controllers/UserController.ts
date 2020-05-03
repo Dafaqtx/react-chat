@@ -15,26 +15,22 @@ class UserController {
     })
   }
 
-  getAll(req: express.Request, res: express.Response) {
+  get(req: express.Request, res: express.Response) {
     UserModel.find({}, (err, users) => {
       if (err) {
         return res.status(409).json({
-          message: 'Somthing went wrong'
+          message: 'Something went wrong'
         })
       }
-      const userList = users.map(user => ({_id: user._id, email: user.email, fullName: user.fullname}))
+      const userList = users.map(user => ({_id: user._id, email: user.email, fullName: user.fullName}))
       res.json(userList); 
     })
-  }
-
-  getMe() {
-    // TODO: Сделать возвращение инфы о самом себе (аутентификация)
   }
 
   create(req: express.Request, res: express.Response) {
     const userRegistrationData = {
       email: req.body.email,
-      fullname: req.body.fullname,
+      fullName: req.body.fullName,
       password: req.body.password,
     }
 
@@ -57,7 +53,7 @@ class UserController {
       .then((user) => {
         if (user) {
           res.json({
-            message: `User ${user.fullname} deleted`,
+            message: `User ${user.fullName} deleted`,
           })
         }
       })

@@ -3,7 +3,7 @@ import { isEmail } from 'validator'
 
 export interface IUser extends Document {
   email: string
-  fullname: string
+  fullName: string
   password: string
   confirmed: boolean
   avatar?: string
@@ -19,9 +19,9 @@ const UserSchema = new Schema(
       validate: [isEmail, 'Invalid email'],
       unique: true,
     },
-    fullname: {
+    fullName: {
       type: String,
-      required: 'Fullname is required',
+      required: 'Full name is required',
     },
     password: {
       type: String,
