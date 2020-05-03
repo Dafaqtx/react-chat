@@ -8,7 +8,7 @@ export interface IUser extends Document {
   fullName: string;
   password: string;
   confirmed: boolean;
-  avatar?: string;
+  avatar: string;
   confirm_hash?: string;
   last_seen?: Date;
 }
@@ -53,26 +53,17 @@ UserSchema.set('toJSON', {
   virtuals: true,
 });
 
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', async function (next) {
   // tslint:disable-next-line
   const user: any = this;
   // const user: IUser = this;
 
-  if (!this.isModified('password')) return next();
+  if (!user.isModified('password')) {
+    return next();
+  }
 
-  generatePasswordHash(user.password)
-    .then(hash => {
-      user.password = String(hash);
-      generatePasswordHash(new Date().toLocaleDateString()).then(
-        confirmHash => {
-          user.confirm_hash = String(confirmHash);
-          next();
-        }
-      );
-    })
-    .catch(err => {
-      next(err);
-    });
+  user.password = await generatePasswordHash(user.password);
+  user.confirm_hash = await generatePasswordHash(new Date().toString());
 });
 
 const UserModel = mongoose.model<IUser>('User', UserSchema);

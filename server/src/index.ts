@@ -14,7 +14,9 @@ const io = createSocket(http);
 
 createRoutes(app, io);
 
-http.listen(process.env.PORT, () => {
+const PORT = process.env.PORT || 3003;
+
+http.listen(PORT, function () {
   // tslint:disable-next-line
-  console.log(`Server: http://localhost:${process.env.PORT}`);
+  console.log(`Server: http://localhost:${PORT}`);
 });

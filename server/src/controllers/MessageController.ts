@@ -10,24 +10,34 @@ class MessageController {
     this.io = io;
   }
 
-  index = (req: express.Request, res: express.Response) => {
-    const dialogId: string = req.query.dialog;
-    const userId = req.user._id;
-
+  updateReadedStatus = (
+    res: express.Response,
+    userId: string,
+    dialogId: string
+  ) => {
     MessageModel.updateMany(
       { dialog: dialogId, user: { $ne: userId } },
       { $set: { readed: true } },
       (err: any) => {
         if (err) {
-          // tslint:disable-next-line
-          console.log(err);
           return res.status(500).json({
             status: 'error',
             message: err,
           });
         }
+        this.io.emit('SERVER:MESSAGES_READED', {
+          userId,
+          dialogId,
+        });
       }
     );
+  };
+
+  index = (req: express.Request, res: express.Response) => {
+    const dialogId: string = req.query.dialog;
+    const userId = req.user._id;
+
+    this.updateReadedStatus(res, userId, dialogId);
 
     MessageModel.find({ dialog: dialogId })
       .populate(['dialog', 'user', 'attachments'])
@@ -45,14 +55,16 @@ class MessageController {
   create = (req: any, res: express.Response) => {
     const userId = req.user._id;
 
-    const postData = {
+    const createMessageData = {
       text: req.body.text,
       dialog: req.body.dialog_id,
       attachments: req.body.attachments,
       user: userId,
     };
 
-    const message = new MessageModel(postData);
+    const message = new MessageModel(createMessageData);
+
+    this.updateReadedStatus(res, userId, req.body.dialog_id);
 
     message
       .save()
@@ -68,7 +80,7 @@ class MessageController {
             }
 
             DialogModel.findOneAndUpdate(
-              { _id: postData.dialog },
+              { _id: createMessageData.dialog },
               { lastMessage: message._id },
               { upsert: true },
               err => {
