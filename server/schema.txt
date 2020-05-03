@@ -1,18 +1,23 @@
-dialogs: {
+dialogs:
     _id
     author
     partner
-    createdAt
-    updatedAt
-}
+    created_at, updated_at
 
-messages: {
+messages:
     _id
-    author
-    partner
     text
     dialog
     unread
-    createdAt
-    updatedAt
-}
+    created_at, updated_at
+
+users:
+    _id
+    email
+    avatar
+    fullname
+    password (md5)
+    confirmed
+    confirm_hash
+    last_seen
+    created_at, updated_at
