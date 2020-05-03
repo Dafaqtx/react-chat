@@ -1,6 +1,6 @@
 import { verifyJWTToken } from '../helpers';
 
-export default (req: any, res: any, next: Function) => {
+export default (req: any, res: any, next: () => void) => {
   if (req.path === '/users/login' || req.path === '/users/registration') {
     return next();
   }

@@ -1,5 +1,5 @@
-import express from "express";
-import { UserModel } from "../models";
+import express from 'express';
+import { UserModel } from '../models';
 
 export default (
   _: express.Request,
@@ -7,13 +7,15 @@ export default (
   next: express.NextFunction
 ) => {
   UserModel.findOneAndUpdate(
-    { _id: "5eae96ac838ef314f410bba3" },
+    { _id: '5eae96ac838ef314f410bba3' },
     {
-      fullName: "Test one",
-      last_seen: new Date()
+      fullName: 'Test one',
+      last_seen: new Date(),
     },
     { new: true },
-    () => {}
+    () => {
+      return;
+    }
   );
   next();
 };

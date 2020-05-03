@@ -1,15 +1,15 @@
-import mongoose, { Schema, Document } from 'mongoose'
-import { isEmail } from 'validator'
-import { generatePasswordHash } from '../helpers'
+import mongoose, { Schema, Document } from 'mongoose';
+import { isEmail } from 'validator';
+import { generatePasswordHash } from '../helpers';
 
 export interface IUser extends Document {
-  email: string
-  fullName: string
-  password: string
-  confirmed: boolean
-  avatar?: string
-  confirm_hash?: string
-  last_seen?: Date
+  email: string;
+  fullName: string;
+  password: string;
+  confirmed: boolean;
+  avatar?: string;
+  confirm_hash?: string;
+  last_seen?: Date;
 }
 
 const UserSchema = new Schema(
@@ -42,9 +42,10 @@ const UserSchema = new Schema(
   {
     timestamps: true,
   }
-)
+);
 
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function (next) {
+  // tslint:disable-next-line
   const user: any = this;
   // const user: IUser = this;
 
@@ -62,4 +63,4 @@ UserSchema.pre('save', function(next) {
 
 const UserModel = mongoose.model<IUser>('User', UserSchema);
 
-export default UserModel
+export default UserModel;
