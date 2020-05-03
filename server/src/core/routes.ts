@@ -7,16 +7,20 @@ import {
   registrationValidation,
 } from '../helpers/validations';
 
+import multer from './multer';
+
 import {
   UserController,
   DialogController,
   MessageController,
+  UploadFileController,
 } from '../controllers';
 
 const createRoutes = (app: express.Express, io: socket.Server) => {
   const User = new UserController(io);
   const Dialog = new DialogController(io);
   const Messages = new MessageController(io);
+  const UploadFile = new UploadFileController();
 
   app.use(bodyParser.json());
   app.use(checkAuth);
@@ -37,7 +41,10 @@ const createRoutes = (app: express.Express, io: socket.Server) => {
 
   app.get('/messages', Messages.index);
   app.post('/messages', Messages.create);
-  app.delete('/messages/:id', Messages.delete);
+  app.delete('/messages', Messages.delete);
+
+  app.post('/files', multer.single('file'), UploadFile.create);
+  app.delete('/files', UploadFile.delete);
 };
 
 export default createRoutes;
