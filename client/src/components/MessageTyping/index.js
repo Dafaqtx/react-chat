@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import './MessageTyping.scss'
+import './MessageTyping.scss';
 
 const MessageTyping = () => {
   return (
@@ -9,7 +9,7 @@ const MessageTyping = () => {
       <span></span>
       <span></span>
     </div>
-  )
-}
+  );
+};
 
-export default MessageTyping
+export default MessageTyping;

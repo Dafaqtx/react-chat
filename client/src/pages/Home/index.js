@@ -1,14 +1,14 @@
-import React, {useState} from 'react'
-import { Tooltip, Button } from 'antd'
-import { TeamOutlined, FormOutlined, EllipsisOutlined } from '@ant-design/icons'
+import React, {useState} from 'react';
+import { Tooltip, Button } from 'antd';
+import { TeamOutlined, FormOutlined, EllipsisOutlined } from '@ant-design/icons';
 
-import { Dialogs, Messages } from 'containers'
-import { CreateMessageForm } from 'modules'
+import { Dialogs, Messages } from 'containers';
+import { CreateMessageForm } from 'modules';
 
-import './Home.scss'
+import './Home.scss';
 
 const Home = () => {
-  const [currentDialogId, setCurrentDialogId] = useState(null)
+  const [currentDialogId, setCurrentDialogId] = useState(null);
   
   return (
     <section className="Home">
@@ -54,7 +54,7 @@ const Home = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

@@ -1,3 +1,3 @@
-import CreateMessageForm from './containers/CreateMessageForm'
+import CreateMessageForm from './containers/CreateMessageForm';
 
-export default CreateMessageForm
+export default CreateMessageForm;

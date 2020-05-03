@@ -1,9 +1,9 @@
-import React from 'react'
-import { Empty, Input } from 'antd'
+import React from 'react';
+import { Empty, Input } from 'antd';
 
-import DialogItem from '../DialogItem'
+import DialogItem from '../DialogItem';
 
-import './DialogList.scss'
+import './DialogList.scss';
 
 const DialogList = ({ dialogs, userId, onSearch, onSelectDialog }) => {
   return (
@@ -31,7 +31,7 @@ const DialogList = ({ dialogs, userId, onSearch, onSelectDialog }) => {
         />
       )}
     </div>
-  )
-}
+  );
+};
 
-export default DialogList
+export default DialogList;

@@ -1,5 +1,5 @@
-import { axios } from 'core'
+import { axios } from 'core';
 
 export default {
-  getMessages: (id) => axios.get(`/messages?_id=${id}`),
-}
+  getMessages: id => axios.get(`/messages?_id=${id}`),
+};

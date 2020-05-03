@@ -1,3 +1,3 @@
-import CreateMessageForm from '../components/CreateMessageForm'
+import CreateMessageForm from '../components/CreateMessageForm';
 
-export default CreateMessageForm
+export default CreateMessageForm;

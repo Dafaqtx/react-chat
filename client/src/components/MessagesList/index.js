@@ -1,10 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Spin, Empty } from 'antd'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Spin, Empty } from 'antd';
 
-import { MessageItem } from 'components'
+import { MessageItem } from 'components';
 
-import './MessagesList.scss'
+import './MessagesList.scss';
 
 const MessagesList = ({ messages, isLoading, messageScrollRef }) => {
   return (
@@ -30,15 +30,15 @@ const MessagesList = ({ messages, isLoading, messageScrollRef }) => {
         <Empty description="Начните диалог" />
       )}
     </div>
-  )
-}
+  );
+};
 
 MessagesList.propTypes = {
   messages: PropTypes.array,
-}
+};
 
 MessagesList.defaultPropTypes = {
   messages: [],
-}
+};
 
-export default MessagesList
+export default MessagesList;

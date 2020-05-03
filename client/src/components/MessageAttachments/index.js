@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import './MessageAttachments.scss'
+import './MessageAttachments.scss';
 
 const MessageAttachments = ({ attachments }) => {
   return (
@@ -12,11 +12,11 @@ const MessageAttachments = ({ attachments }) => {
         </li>
       ))}
     </ul>
-  )
-}
+  );
+};
 
 MessageAttachments.propTypes = {
   attachments: PropTypes.array.isRequired,
-}
+};
 
-export default MessageAttachments
+export default MessageAttachments;

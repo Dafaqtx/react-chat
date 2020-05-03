@@ -1,4 +1,4 @@
-import Dialogs from './Dialogs'
-import Messages from './Messages'
+import Dialogs from './Dialogs';
+import Messages from './Messages';
 
-export { Dialogs, Messages }
+export { Dialogs, Messages };

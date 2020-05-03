@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import classNames from 'classnames'
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import {
   Avatar,
@@ -9,9 +9,9 @@ import {
   MessageAttachments,
   CheckMarker,
   Time,
-} from 'components'
+} from 'components';
 
-import './MessageItem.scss'
+import './MessageItem.scss';
 
 const MessageItem = ({
   avatar,
@@ -53,8 +53,8 @@ const MessageItem = ({
       </div>
       {isMine && <CheckMarker checked={isReaded} />}
     </div>
-  )
-}
+  );
+};
 
 MessageItem.propTypes = {
   avatar: PropTypes.string,
@@ -66,7 +66,7 @@ MessageItem.propTypes = {
   isMine: PropTypes.bool,
   isReaded: PropTypes.bool,
   isTyping: PropTypes.bool,
-}
+};
 
 MessageItem.defaultProps = {
   user: {},
@@ -75,6 +75,6 @@ MessageItem.defaultProps = {
   isMine: false,
   isReaded: false,
   isTyping: false,
-}
+};
 
-export default MessageItem
+export default MessageItem;

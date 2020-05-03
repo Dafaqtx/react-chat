@@ -1,4 +1,4 @@
-import { dialogs as api } from 'api'
+import { dialogs as api } from 'api';
 
 const actions = {
   setDialogList: dialogs => ({
@@ -11,9 +11,9 @@ const actions = {
   }),
   getDialogList: () => dispatch => {
     api.getDialogs().then(({ data }) => {
-      dispatch(actions.setDialogList(data))
-    })
+      dispatch(actions.setDialogList(data));
+    });
   },
-}
+};
 
-export default actions
+export default actions;

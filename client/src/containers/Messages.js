@@ -1,23 +1,23 @@
-import React, { useEffect, createRef } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React, { useEffect, createRef } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import { messagesActions } from 'redux/actions'
+import { messagesActions } from 'redux/actions';
 
-import { MessagesList } from 'components'
+import { MessagesList } from 'components';
 
 const Messages = ({ items, isLoading, currentDialogId, getMessagesList }) => {
-  const messageScrollRef = createRef()
+  const messageScrollRef = createRef();
 
   useEffect(() => {
     if (currentDialogId) {
-      getMessagesList(currentDialogId)
+      getMessagesList(currentDialogId);
     }
-  }, [getMessagesList, currentDialogId])
+  }, [getMessagesList, currentDialogId]);
 
   useEffect(() => {
-    messageScrollRef.current.scrollTo(0, 999999)
-  }, [items, messageScrollRef])
+    messageScrollRef.current.scrollTo(0, 999999);
+  }, [items, messageScrollRef]);
 
   return (
     <MessagesList
@@ -25,17 +25,17 @@ const Messages = ({ items, isLoading, currentDialogId, getMessagesList }) => {
       isLoading={isLoading}
       messageScrollRef={messageScrollRef}
     />
-  )
-}
+  );
+};
 
 Messages.propTypes = {
   items: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,
   currentDialogId: PropTypes.number,
-}
+};
 
 Messages.defaultProps = {
   currentDialogId: null,
-}
+};
 
-export default connect(({ messages }) => messages, messagesActions)(Messages)
+export default connect(({ messages }) => messages, messagesActions)(Messages);

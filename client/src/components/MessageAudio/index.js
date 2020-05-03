@@ -1,65 +1,65 @@
-import React, { useState, useRef, useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { covertCurrentTime } from 'utils/helpers'
+import React, { useState, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { covertCurrentTime } from 'utils/helpers';
 
-import { voiceDiagramIcon, playIcon, pauseIcon } from 'assets/icons'
+import { voiceDiagramIcon, playIcon, pauseIcon } from 'assets/icons';
 
-import './MessageAudio.scss'
+import './MessageAudio.scss';
 
 const MessageAudio = ({ src }) => {
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [audioCurrentTime, setAudioCurrentTime] = useState(0)
-  const [audioProgress, setAudioProgress] = useState(0)
-  const audioRef = useRef(null)
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [audioCurrentTime, setAudioCurrentTime] = useState(0);
+  const [audioProgress, setAudioProgress] = useState(0);
+  const audioRef = useRef(null);
 
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.addEventListener(
         'playing',
         () => {
-          setIsPlaying(true)
+          setIsPlaying(true);
         },
         false
-      )
+      );
 
       audioRef.current.addEventListener(
         'ended',
         () => {
-          setIsPlaying(false)
-          setAudioProgress(0)
-          setAudioCurrentTime(0)
+          setIsPlaying(false);
+          setAudioProgress(0);
+          setAudioCurrentTime(0);
         },
         false
-      )
+      );
 
       audioRef.current.addEventListener(
         'pause',
         () => {
-          setIsPlaying(false)
+          setIsPlaying(false);
         },
         false
-      )
+      );
 
       audioRef.current.addEventListener(
         'timeupdate',
         () => {
-          const currentTime = audioRef.current.currentTime
-          const duration = (audioRef.current && audioRef.current.duration) || 0
+          const currentTime = audioRef.current.currentTime;
+          const duration = (audioRef.current && audioRef.current.duration) || 0;
 
-          setAudioCurrentTime(currentTime)
-          setAudioProgress((currentTime / duration) * 100)
+          setAudioCurrentTime(currentTime);
+          setAudioProgress((currentTime / duration) * 100);
         },
         false
-      )
+      );
     }
-  }, [])
+  }, []);
   const togglePlay = () => {
     if (isPlaying) {
-      audioRef.current.pause()
+      audioRef.current.pause();
     } else {
-      audioRef.current.play()
+      audioRef.current.play();
     }
-  }
+  };
   return (
     <div className="MessageAudio">
       <audio src={src} ref={audioRef} preload="auto" />
@@ -83,11 +83,11 @@ const MessageAudio = ({ src }) => {
         </span>
       </div>
     </div>
-  )
-}
+  );
+};
 
 MessageAudio.propTypes = {
   src: PropTypes.string.isRequired,
-}
+};
 
-export default MessageAudio
+export default MessageAudio;

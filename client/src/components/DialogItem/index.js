@@ -1,9 +1,9 @@
-import React from 'react'
-import classNames from 'classnames'
+import React from 'react';
+import classNames from 'classnames';
 
-import { Avatar, Time, CheckMarker } from 'components'
+import { Avatar, Time, CheckMarker } from 'components';
 
-import './DialogItem.scss'
+import './DialogItem.scss';
 
 const DialogItem = ({ dialog, isMine, onSelectDialog }) => {
   return (
@@ -37,7 +37,7 @@ const DialogItem = ({ dialog, isMine, onSelectDialog }) => {
         </div>
       </div>
     </button>
-  )
-}
+  );
+};
 
-export default DialogItem
+export default DialogItem;

@@ -1,10 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import classNames from 'classnames'
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-import { Button as BaseButton } from 'antd'
+import { Button as BaseButton } from 'antd';
 
-import './Button.scss'
+import './Button.scss';
 
 const Button = (props) => (
   <BaseButton
@@ -13,10 +13,10 @@ const Button = (props) => (
       'Button--large': props.size === 'large',
     })}
   />
-)
+);
 
 Button.propTypes = {
   className: PropTypes.string,
-}
+};
 
-export default Button
+export default Button;

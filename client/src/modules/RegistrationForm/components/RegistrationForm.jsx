@@ -1,10 +1,10 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Form } from 'antd'
-import { ExclamationCircleTwoTone } from '@ant-design/icons'
-import { validateField } from 'utils/helpers'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Form } from 'antd';
+import { ExclamationCircleTwoTone } from '@ant-design/icons';
+import { validateField } from 'utils/helpers';
 
-import { Block, Button, Input } from 'components'
+import { Block, Button, Input } from 'components';
 
 const RegistrationForm = ({
   values,
@@ -15,7 +15,7 @@ const RegistrationForm = ({
   handleBlur,
   handleSubmit,
 }) => {
-  const success = false
+  const success = false;
 
   return (
     <div className="RegistrationForm">
@@ -110,7 +110,7 @@ const RegistrationForm = ({
         )}
       </Block>
     </div>
-  )
-}
+  );
+};
 
-export default RegistrationForm
+export default RegistrationForm;

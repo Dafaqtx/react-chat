@@ -1,4 +1,4 @@
-import { messages as api } from 'api'
+import { messages as api } from 'api';
 
 const actions = {
   setMessagesList: messages => ({
@@ -10,17 +10,17 @@ const actions = {
     payload: isLoading,
   }),
   getMessagesList: dialogId => dispatch => {
-    dispatch(actions.setIsLoading(true))
+    dispatch(actions.setIsLoading(true));
     api
       .getMessages(dialogId)
       .then(({ data }) => {
-        dispatch(actions.setMessagesList(data))
-        dispatch(actions.setIsLoading(false))
+        dispatch(actions.setMessagesList(data));
+        dispatch(actions.setIsLoading(false));
       })
       .catch(() => {
-        dispatch(actions.setIsLoading(false))
-      })
+        dispatch(actions.setIsLoading(false));
+      });
   },
-}
+};
 
-export default actions
+export default actions;

@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import { dialogsActions } from 'redux/actions'
+import { dialogsActions } from 'redux/actions';
 
-import { DialogList } from 'components'
+import { DialogList } from 'components';
 
 const Dialogs = ({ items, setCurrentDialogId, getDialogList }) => {
   const [filteredList, setFilteredList] = useState(items);
 
   useEffect(() => {
     if (!items.length) {
-      getDialogList()
+      getDialogList();
     }
-    setFilteredList(items)
-  }, [items, getDialogList])
+    setFilteredList(items);
+  }, [items, getDialogList]);
 
   const handleSearch = value => {
     if (value) {
@@ -22,11 +22,11 @@ const Dialogs = ({ items, setCurrentDialogId, getDialogList }) => {
         items.filter(el =>
           el.user.fullName.toLowerCase().includes(value.toLowerCase())
         )
-      )
+      );
     } else {
-      setFilteredList(items)
+      setFilteredList(items);
     }
-  }
+  };
 
   return (
     <DialogList
@@ -35,11 +35,11 @@ const Dialogs = ({ items, setCurrentDialogId, getDialogList }) => {
       onSearch={handleSearch}
       onSelectDialog={setCurrentDialogId}
     />
-  )
-}
+  );
+};
 
 Dialogs.propTypes = {
   items: PropTypes.array.isRequired,
-}
+};
 
-export default connect(({ dialogs }) => dialogs, dialogsActions)(Dialogs)
+export default connect(({ dialogs }) => dialogs, dialogsActions)(Dialogs);

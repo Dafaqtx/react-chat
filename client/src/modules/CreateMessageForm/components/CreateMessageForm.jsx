@@ -1,15 +1,15 @@
-import React from 'react'
-import Upload from 'rc-upload'
+import React from 'react';
+import Upload from 'rc-upload';
 
-import { Input, Button } from 'antd'
+import { Input, Button } from 'antd';
 import {
   SmileOutlined,
   AudioOutlined,
   PaperClipOutlined,
   SendOutlined,
-} from '@ant-design/icons'
+} from '@ant-design/icons';
 
-import './CreateMessageForm.scss'
+import './CreateMessageForm.scss';
 
 const CreateMessageForm = () => {
 
@@ -50,7 +50,7 @@ const CreateMessageForm = () => {
         <Button shape="circle" icon={<SendOutlined />} size="large" />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CreateMessageForm
+export default CreateMessageForm;

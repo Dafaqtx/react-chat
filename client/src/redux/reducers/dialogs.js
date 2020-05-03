@@ -2,7 +2,7 @@ const initialState = {
   items: [],
   dialogsAreLoaded: false,
   currentDialog: null,
-}
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -11,14 +11,14 @@ export default (state = initialState, action) => {
         ...state,
         dialogsAreLoaded: true,
         items: action.payload,
-      }
+      };
     case 'DIALOGS:SET_CURRENT_DIALOG':
       return {
         ...state,
         currentDialog: action.payload,
-      }
+      };
 
     default:
-      return state
+      return state;
   }
-}
+};

@@ -1,7 +1,7 @@
 const initialState = {
   items: [],
   isLoading: false,
-}
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -10,13 +10,13 @@ export default (state = initialState, action) => {
         ...state,
         messagesAreLoaded: true,
         items: action.payload,
-      }
+      };
     case 'MESSAGES:SET_IS_LOADING':
       return {
         ...state,
         isLoading: action.payload,
-      }
+      };
     default:
-      return state
+      return state;
   }
-}
+};

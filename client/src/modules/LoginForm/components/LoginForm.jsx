@@ -1,9 +1,9 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Form } from 'antd'
-import { validateField } from 'utils/helpers'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Form } from 'antd';
+import { validateField } from 'utils/helpers';
 
-import { Block, Button, Input } from 'components'
+import { Block, Button, Input } from 'components';
 
 const LoginForm = ({
   values,
@@ -66,9 +66,9 @@ const LoginForm = ({
         </Form>
       </Block>
     </div>
-  )
-}
+  );
+};
 
-LoginForm.propTypes = {}
+LoginForm.propTypes = {};
 
-export default LoginForm
+export default LoginForm;

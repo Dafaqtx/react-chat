@@ -1,6 +1,6 @@
-import RegistrationForm from '../components/RegistrationForm'
-import validateForm from 'utils/validation'
-import { withFormik } from 'formik'
+import RegistrationForm from '../components/RegistrationForm';
+import validateForm from 'utils/validation';
+import { withFormik } from 'formik';
 
 export default withFormik({
   enableReinitialize: true,
@@ -11,19 +11,19 @@ export default withFormik({
     confirmation: '',
   }),
   validate: values => {
-    const errors = {}
+    const errors = {};
 
-    validateForm({ isAuth: false, values, errors })
+    validateForm({ isAuth: false, values, errors });
 
-    return errors
+    return errors;
   },
 
   handleSubmit: (values, { setSubmitting }) => {
     setTimeout(() => {
-      alert(JSON.stringify(values, null, 2))
-      setSubmitting(false)
-    }, 1000)
+      alert(JSON.stringify(values, null, 2));
+      setSubmitting(false);
+    }, 1000);
   },
 
   displayName: 'RegistrationForm',
-})(RegistrationForm)
+})(RegistrationForm);
