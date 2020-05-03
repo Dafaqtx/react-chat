@@ -71,7 +71,7 @@ class MessageController {
       .then((obj: any) => {
         obj.populate(
           ['dialog', 'user', 'attachments'],
-          (err: any, message: any) => {
+          (err: any, messageObj: any) => {
             if (err) {
               return res.status(500).json({
                 status: 'error',
@@ -81,13 +81,13 @@ class MessageController {
 
             DialogModel.findOneAndUpdate(
               { _id: createMessageData.dialog },
-              { lastMessage: message._id },
+              { lastMessage: messageObj._id },
               { upsert: true },
-              err => {
-                if (err) {
+              error => {
+                if (error) {
                   return res.status(500).json({
                     status: 'error',
-                    message: err,
+                    messageObj: error,
                   });
                 }
               }
@@ -124,19 +124,19 @@ class MessageController {
           { dialog: dialogId },
           {},
           { sort: { created_at: -1 } },
-          (err, lastMessage) => {
-            if (err) {
+          (errorMessage, lastMessage) => {
+            if (errorMessage) {
               res.status(500).json({
                 status: 'error',
-                message: err,
+                message: errorMessage,
               });
             }
 
-            DialogModel.findById(dialogId, (err, dialog: any) => {
-              if (err) {
+            DialogModel.findById(dialogId, (error, dialog: any) => {
+              if (error) {
                 res.status(500).json({
                   status: 'error',
-                  message: err,
+                  message: error,
                 });
               }
 

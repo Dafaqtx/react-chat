@@ -83,10 +83,10 @@ class DialogController {
                   res.json(reason);
                 });
             })
-            .catch(err => {
+            .catch(error => {
               res.json({
                 status: 'error',
-                message: err,
+                message: error,
               });
             });
         }

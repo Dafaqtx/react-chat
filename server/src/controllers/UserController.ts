@@ -119,9 +119,9 @@ class UserController {
           },
           (err: any, info: any) => {
             if (err) {
-              console.log(err);
+              throw new Error(err);
             } else {
-              console.log(info);
+              return info;
             }
           }
         );
@@ -150,11 +150,11 @@ class UserController {
       }
 
       user.confirmed = true;
-      user.save(err => {
-        if (err) {
+      user.save((errorMessage: string) => {
+        if (errorMessage) {
           return res.status(404).json({
             status: 'error',
-            message: err,
+            message: errorMessage,
           });
         }
 
