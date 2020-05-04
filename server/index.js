@@ -1,13 +1,13 @@
-const http = require('http')
-const config = require('config')
+const http = require('http');
+const config = require('config');
 
-const app = require('./app')
-const logger = require('./helpers/logger')
+const app = require('./app');
+const logger = require('./helpers/logger');
 
-const PORT = config.get('port') || 3001
+const PORT = config.get('PORT') || 3001;
 
-const server = http.createServer(app)
+const server = http.createServer(app);
 
 server.listen(PORT, () => {
-  logger.info(`Server running on port ${PORT}`)
-})
+  logger.info(`Server running on port ${PORT}`);
+});

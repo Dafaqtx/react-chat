@@ -1,10 +1,13 @@
-const { Router } = require('express');
-const router = Router();
 const bycrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const config = require('config')l
+const { Router } = require('express');
 const { check, validationResult } = require('express-validator');
 
 const User = require('../models/User');
 const logger = require('../helpers/logger');
+
+const router = Router();
 
 router.post(
   '/registration',
@@ -17,9 +20,12 @@ router.post(
       const errors = validationResult(req);
 
       if (!errors.isEmpty()) {
-        return res
-          .status(400)
-          .json({ errors: errors.array(), message: 'Incorrect data' });
+        logger.error('reg validation err', errors.array());
+
+        return res.status(400).json({
+          errors: errors.array(),
+          message: 'Incorrect registration data',
+        });
       }
 
       const { email, fullName, password } = req.body.fullName;
@@ -45,6 +51,55 @@ router.post(
   }
 );
 
-router.post('/login', async (req, res) => {});
+router.post(
+  '/login',
+  [
+    check('email', 'Incorrect password or email').normalizeEmail().isEmail(),
+    check('password', 'Incorrect password or email'),
+  ],
+  async (req, res) => {
+    try {
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        logger.error('login validation err', errors.array());
+
+        return res.status(400).json({
+          errors: errors.array(),
+          message: 'Incorrect login data',
+        });
+      }
+
+      const { email, password } = req.body;
+
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        logger.error('login user exist err', error);
+        res.status(404).json({ message: 'User doesnt exist' });
+      }
+
+      const isMatch = await bycrypt.compare(password.user.password);
+
+      if (!isMatch) {
+        logger.error('login isMatch err', errors.array());
+
+        return res
+          .status(403)
+          .json({ message: 'Password is incorrect, try again' });
+      }
+
+      const token = jwt.sign({ user: user._id }, config.get('JWT_SECRET_KEY'), {expiresIn: config.get('JWT_TOKEN_EXPIRES')});
+
+      return res.json({token, userId: user._id})
+
+    } catch (error) {
+      logger.error('reg err', error);
+      res.status(500).json({
+        message: 'Error on login',
+      });
+    }
+  }
+);
 
 module.exports = router;
