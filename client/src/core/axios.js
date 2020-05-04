@@ -10,6 +10,7 @@ const api = axios.create({
       token: window.localStorage.token,
     },
   },
+  validateStatus: status => status < 300,
 });
 
 window.axios = api;

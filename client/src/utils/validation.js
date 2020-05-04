@@ -12,9 +12,9 @@ export default ({ isAuth, values, errors }) => {
         errors.email = 'Неверный почтовый адрес';
       }
     },
-    name: value => {
+    fullName: value => {
       if (!value) {
-        errors.name = 'Введите имя';
+        errors.fullName = 'Введите имя';
       }
     },
     password: value => {

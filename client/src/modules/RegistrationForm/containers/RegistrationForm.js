@@ -1,7 +1,5 @@
-import { useHistory } from 'react-router-dom';
 import store from 'redux/store';
 import { withFormik } from 'formik';
-import get from 'lodash/get';
 
 import RegistrationForm from '../components/RegistrationForm';
 import validateForm from 'utils/validation';
@@ -13,40 +11,41 @@ export default withFormik({
   enableReinitialize: true,
   mapPropsToValues: () => ({
     email: '',
-    name: '',
+    fullName: '',
     password: '',
     confirmation: '',
   }),
   validate: values => {
     const errors = {};
-    // validateForm({ isAuth: false, values, errors });
+    validateForm({ isAuth: false, values, errors });
     return errors;
   },
 
-  handleSubmit: (values, { setSubmitting }) => {
+  handleSubmit: (values, { props, setSubmitting, setFieldError }) => {
     store
       .dispatch(userActions.fetchUserRegister(values))
       .then(() => {
-        useHistory().push('/registration/verify');
+        // props.history.push('/registration/verify');
         setSubmitting(false);
       })
-      .catch(err => {
-        console.log('err', err);
-        // if (get(err, 'response.data.message.errmsg', '').indexOf('dup') >= 0) {
-        //   showNotification({
-        //     title: 'Ошибка',
-        //     text: 'Аккаунт с такой почтой уже создан.',
-        //     type: 'error',
-        //     duration: 5000,
-        //   });
-        // } else {
-        //   showNotification({
-        //     title: 'Ошибка',
-        //     text: 'Возникла серверная ошибка при регистрации. Повторите позже.',
-        //     type: 'error',
-        //     duration: 5000,
-        //   });
-        // }
+      .catch(({ response: { data } }) => {
+        const errorTitle = data.message;
+        const errorText = Array.from(data.errors)
+          .map(error => error.msg)
+          .join(', \n');
+
+        console.log(errorText);
+
+        for (const error of Array.from(data.errors)) {
+          setFieldError(error.param, error.msg);
+        }
+
+        showNotification({
+          title: errorTitle,
+          text: errorText,
+          type: 'error',
+          duration: 5000,
+        });
         setSubmitting(false);
       });
   },

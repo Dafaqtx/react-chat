@@ -1,7 +1,7 @@
-const bycrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('config');
-const { check, validationResult } = require('express-validator');
+const {  validationResult } = require('express-validator');
 
 const User = require('../models/User');
 const logger = require('../helpers/logger');
@@ -20,7 +20,7 @@ class UserController {
         });
       }
 
-      const { email, fullName, password } = req.body.fullName;
+      const { email, fullName, password } = req.body;
 
       const candidate = await User.findOne({ email });
 
@@ -29,7 +29,7 @@ class UserController {
         return res.status(400).json({ message: 'User already exists' });
       }
 
-      const hashedPass = await bycrypt.hash(password, 12);
+      const hashedPass = await bcrypt.hash(password, 12);
       const user = new User({ email, fullName, password: hashedPass });
 
       await user.save();
@@ -64,7 +64,7 @@ class UserController {
         res.status(404).json({ message: 'User doesnt exist' });
       }
 
-      const isMatch = await bycrypt.compare(password.user.password);
+      const isMatch = await bcrypt.compare(password.user.password);
 
       if (!isMatch) {
         logger.error('login isMatch err', errors.array());

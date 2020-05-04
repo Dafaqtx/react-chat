@@ -42,8 +42,8 @@ const RegistrationForm = ({
             </Form.Item>
             <Form.Item
               name="fullName"
-              validateStatus={validateField('name', touched, errors)}
-              help={touched.name ? errors.name : null}
+              validateStatus={validateField('fullName', touched, errors)}
+              help={touched.fullName ? errors.fullName : null}
               hasFeedback>
               <Input
                 type="text"
@@ -51,7 +51,7 @@ const RegistrationForm = ({
                 size="large"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.name}
+                value={values.fullName}
               />
             </Form.Item>
             <Form.Item
