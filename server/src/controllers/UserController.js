@@ -87,7 +87,7 @@ class UserController {
   }
 
   create(req, res) {
-    const registrationDate = {
+    const registrationData = {
       email: req.body.email,
       fullName: req.body.fullName,
       password: req.body.password,
@@ -99,34 +99,42 @@ class UserController {
       return res.status(422).json({ errors: errors.array() });
     }
 
-    const user = new UserModel(registrationDate);
+    const user = new UserModel(registrationData);
 
-    user
-      .save()
-      .then(obj => {
-        res.json(obj);
-        mailer.sendMail(
-          {
-            from: 'admin@test.com',
-            to: registrationDate.email,
-            subject: 'Подтверждение почты React Chat',
-            html: `Для того, чтобы подтвердить почту, перейдите по <a href="http://localhost:3000/signup/verify?hash=${obj.confirm_hash}">ссылке</a>`,
-          },
-          (err, info) => {
-            if (err) {
-              throw new Error(err);
-            } else {
-              return info;
-            }
-          }
-        );
-      })
-      .catch(reason => {
-        res.status(500).json({
-          status: 'error',
-          message: reason,
-        });
+    user.save(err => {
+      if (err) return console.log(err);
+
+      return res.status(503).json({
+        status: 'error',
+        message: 'Error on save data',
       });
+    });
+
+    // try {
+    //   user.save().then(obj => {
+    //     res.json(obj);
+    //     mailer.sendMail(
+    //       {
+    //         from: 'admin@test.com',
+    //         to: registrationData.email,
+    //         subject: 'Подтверждение почты React Chat',
+    //         html: `Для того, чтобы подтвердить почту, перейдите по <a href="http://localhost:3000/signup/verify?hash=${obj.confirm_hash}">ссылке</a>`,
+    //       },
+    //       (err, info) => {
+    //         if (err) {
+    //           throw new Error(err);
+    //         } else {
+    //           return info;
+    //         }
+    //       }
+    //     );
+    //   });
+    // } catch (reason) {
+    //   return res.status(500).json({
+    //     status: 'error',
+    //     message: reason,
+    //   });
+    // }
   }
 
   verify(req, res) {

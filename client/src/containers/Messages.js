@@ -1,4 +1,4 @@
-import React, { useEffect, createRef, Suspense } from 'react';
+import React, { useEffect, createRef } from 'react';
 import PropTypes from 'prop-types';
 import { Spin } from 'antd';
 import { connect } from 'react-redux';

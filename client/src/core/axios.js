@@ -1,5 +1,17 @@
 import axios from 'axios';
+const API_PREFIX = 'api';
 
-axios.defaults.baseURL = 'http://localhost:10000';
+const api = axios.create({
+  baseURL: `http://localhost:3001/${API_PREFIX}`,
+  headers: {
+    common: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      token: window.localStorage.token,
+    },
+  },
+});
 
-export default axios;
+window.axios = api;
+
+export default api;

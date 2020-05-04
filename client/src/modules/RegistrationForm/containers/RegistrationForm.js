@@ -1,6 +1,13 @@
+import { useHistory } from 'react-router-dom';
+import store from 'redux/store';
+import { withFormik } from 'formik';
+import get from 'lodash/get';
+
 import RegistrationForm from '../components/RegistrationForm';
 import validateForm from 'utils/validation';
-import { withFormik } from 'formik';
+import { showNotification } from 'utils/helpers';
+
+import { userActions } from 'redux/actions';
 
 export default withFormik({
   enableReinitialize: true,
@@ -12,17 +19,36 @@ export default withFormik({
   }),
   validate: values => {
     const errors = {};
-
-    validateForm({ isAuth: false, values, errors });
-
+    // validateForm({ isAuth: false, values, errors });
     return errors;
   },
 
   handleSubmit: (values, { setSubmitting }) => {
-    setTimeout(() => {
-      alert(JSON.stringify(values, null, 2));
-      setSubmitting(false);
-    }, 1000);
+    store
+      .dispatch(userActions.fetchUserRegister(values))
+      .then(() => {
+        useHistory().push('/signup/verify');
+        setSubmitting(false);
+      })
+      .catch(err => {
+        console.log('err', err);
+        // if (get(err, 'response.data.message.errmsg', '').indexOf('dup') >= 0) {
+        //   showNotification({
+        //     title: 'Ошибка',
+        //     text: 'Аккаунт с такой почтой уже создан.',
+        //     type: 'error',
+        //     duration: 5000,
+        //   });
+        // } else {
+        //   showNotification({
+        //     title: 'Ошибка',
+        //     text: 'Возникла серверная ошибка при регистрации. Повторите позже.',
+        //     type: 'error',
+        //     duration: 5000,
+        //   });
+        // }
+        setSubmitting(false);
+      });
   },
 
   displayName: 'RegistrationForm',

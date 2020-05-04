@@ -41,7 +41,7 @@ const RegistrationForm = ({
               />
             </Form.Item>
             <Form.Item
-              name="name"
+              name="fullName"
               validateStatus={validateField('name', touched, errors)}
               help={touched.name ? errors.name : null}
               hasFeedback>
