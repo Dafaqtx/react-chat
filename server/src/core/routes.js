@@ -1,22 +1,20 @@
-import bodyParser from 'body-parser';
-import express from 'express';
-import socket from 'socket.io';
-import { updateLastSeen, checkAuth } from '../middleware';
-import {
+const bodyParser = require('body-parser');
+const { updateLastSeen, checkAuth } = require('../middleware');
+const {
   loginValidation,
   registrationValidation,
-} from '../helpers/validations';
+} = require('../helpers/validations');
 
-import multer from './multer';
+const multer = require('./multer');
 
-import {
+const {
   UserController,
   DialogController,
   MessageController,
   UploadFileController,
-} from '../controllers';
+} = require('../controllers');
 
-const createRoutes = (app: express.Express, io: socket.Server) => {
+const createRoutes = (app, io) => {
   const User = new UserController(io);
   const Dialog = new DialogController(io);
   const Messages = new MessageController(io);
@@ -47,4 +45,4 @@ const createRoutes = (app: express.Express, io: socket.Server) => {
   app.delete('/files', UploadFile.delete);
 };
 
-export default createRoutes;
+exports.module = createRoutes;

@@ -1,9 +1,9 @@
-import { verifyJWTToken } from '../helpers';
+const { verifyJWTToken } = require('../helpers');
 
-export default (req: any, res: any, next: any) => {
+exports.module =  (req, res, next) => {
   if (
-    req.path === '/users/signin' ||
-    req.path === '/users/signup' ||
+    req.path === '/users/signIn' ||
+    req.path === '/users/signUp' ||
     req.path === '/users/verify'
   ) {
     return next();
@@ -12,7 +12,7 @@ export default (req: any, res: any, next: any) => {
   const token = req.headers.token;
 
   verifyJWTToken(token)
-    .then((user: any) => {
+    .then((user) => {
       req.user = user.data._doc;
       next();
     })

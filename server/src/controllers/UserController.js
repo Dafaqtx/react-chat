@@ -1,21 +1,16 @@
-import express from 'express';
-import bcrypt from 'bcrypt';
-import socket from 'socket.io';
-import { validationResult } from 'express-validator';
-import mailer from '../core/mailer';
+const bcrypt = require('bcrypt');
+const { validationResult } = require('express-validator');
+const mailer = require('../core/mailer');
 
-import { UserModel } from '../models';
-import { IUser } from '../models/User';
-import { createJWToken } from '../helpers';
+const { UserModel } = require('../models');
+const { createJWToken } = require('../helpers');
 
 class UserController {
-  io: socket.Server;
-
-  constructor(io: socket.Server) {
+  constructor(io) {
     this.io = io;
   }
 
-  getAll(_, res: express.Response) {
+  getAll(_, res) {
     UserModel.find({}, (err, users) => {
       if (err) {
         return res.status(409).json({
@@ -31,8 +26,8 @@ class UserController {
     });
   }
 
-  show = (req: express.Request, res: express.Response) => {
-    const id: string = req.params.id;
+  show(req, res) {
+    const id = req.params.id;
     UserModel.findById(id, (err, user) => {
       if (err) {
         return res.status(404).json({
@@ -41,12 +36,12 @@ class UserController {
       }
       res.json(user);
     });
-  };
+  }
 
-  getMe = (req: any, res: express.Response) => {
-    const id: string = req.user && req.user._id;
+  getMe(req, res) {
+    const id = req.user && req.user._id;
 
-    UserModel.findById(id, (err, user: any) => {
+    UserModel.findById(id, (err, user) => {
       if (err || !user) {
         return res.status(404).json({
           message: 'User not found',
@@ -54,27 +49,27 @@ class UserController {
       }
       res.json(user);
     });
-  };
+  }
 
-  findUsers = (req: any, res: express.Response) => {
-    const query: string = req.query.query;
+  findUsers(req, res) {
+    const query = req.query.query;
 
     UserModel.find()
       .or([
-        { fullname: new RegExp(query, 'i') },
+        { fullName: new RegExp(query, 'i') },
         { email: new RegExp(query, 'i') },
       ])
-      .then((users: any) => res.json(users))
-      .catch((err: any) => {
+      .then(users => res.json(users))
+      .catch(err => {
         return res.status(404).json({
           status: 'error',
           message: err,
         });
       });
-  };
+  }
 
-  delete = (req: express.Request, res: express.Response) => {
-    const id: string = req.params.id;
+  delete(req, res) {
+    const id = req.params.id;
 
     UserModel.findOneAndRemove({ _id: id })
       .then(user => {
@@ -89,12 +84,12 @@ class UserController {
           message: `User not found`,
         });
       });
-  };
+  }
 
-  create = (req: express.Request, res: express.Response) => {
+  create(req, res) {
     const registrationDate = {
       email: req.body.email,
-      fullname: req.body.fullname,
+      fullName: req.body.fullName,
       password: req.body.password,
     };
 
@@ -108,7 +103,7 @@ class UserController {
 
     user
       .save()
-      .then((obj: any) => {
+      .then(obj => {
         res.json(obj);
         mailer.sendMail(
           {
@@ -117,7 +112,7 @@ class UserController {
             subject: 'Подтверждение почты React Chat',
             html: `Для того, чтобы подтвердить почту, перейдите по <a href="http://localhost:3000/signup/verify?hash=${obj.confirm_hash}">ссылке</a>`,
           },
-          (err: any, info: any) => {
+          (err, info) => {
             if (err) {
               throw new Error(err);
             } else {
@@ -132,9 +127,9 @@ class UserController {
           message: reason,
         });
       });
-  };
+  }
 
-  verify = (req: express.Request, res: express.Response) => {
+  verify(req, res) {
     const hash = req.query.hash;
 
     if (!hash) {
@@ -150,8 +145,8 @@ class UserController {
       }
 
       user.confirmed = true;
-      user.save((errorMessage: string) => {
-        if (errorMessage) {
+      user.save(err => {
+        if (err) {
           return res.status(404).json({
             status: 'error',
             message: errorMessage,
@@ -164,9 +159,9 @@ class UserController {
         });
       });
     });
-  };
+  }
 
-  login = (req: express.Request, res: express.Response) => {
+  login(req, res) {
     const loginData = {
       email: req.body.email,
       password: req.body.password,
@@ -178,7 +173,7 @@ class UserController {
       return res.status(422).json({ errors: errors.array() });
     }
 
-    UserModel.findOne({ email: loginData.email }, (err, user: IUser) => {
+    UserModel.findOne({ email: loginData.email }, (err, user) => {
       if (err || !user) {
         return res.status(404).json({
           message: 'User not found',
@@ -198,7 +193,7 @@ class UserController {
         });
       }
     });
-  };
+  }
 }
 
-export default UserController;
+exports.default = UserController;

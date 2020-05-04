@@ -1,17 +1,8 @@
-import mongoose, { Schema, Document } from 'mongoose';
-import { isEmail } from 'validator';
-import { generatePasswordHash } from '../helpers';
-import { differenceInMinutes } from 'date-fns';
-
-export interface IUser extends Document {
-  email: string;
-  fullName: string;
-  password: string;
-  confirmed: boolean;
-  avatar: string;
-  confirm_hash?: string;
-  last_seen?: Date;
-}
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const { isEmail } = require('validator');
+const { generatePasswordHash } = require('../helpers');
+const { differenceInMinutes } = require('date-fns');
 
 const UserSchema = new Schema(
   {
@@ -45,8 +36,8 @@ const UserSchema = new Schema(
   }
 );
 
-UserSchema.virtual('isOnline').get(function (this: any) {
-  return differenceInMinutes(new Date(), this.last_seen) < 5;
+UserSchema.virtual('isOnline').get(function (user) {
+  return differenceInMinutes(new Date(), user.last_seen) < 5;
 });
 
 UserSchema.set('toJSON', {
@@ -54,9 +45,7 @@ UserSchema.set('toJSON', {
 });
 
 UserSchema.pre('save', async function (next) {
-  // tslint:disable-next-line
-  const user: any = this;
-  // const user: IUser = this;
+  const user = this;
 
   if (!user.isModified('password')) {
     return next();
@@ -66,6 +55,6 @@ UserSchema.pre('save', async function (next) {
   user.confirm_hash = await generatePasswordHash(new Date().toString());
 });
 
-const UserModel = mongoose.model<IUser>('User', UserSchema);
+const UserModel = mongoose.model('User', UserSchema);
 
-export default UserModel;
+exports.module = UserModel;
