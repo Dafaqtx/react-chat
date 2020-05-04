@@ -1,16 +1,12 @@
-import express from 'express';
-import socket from 'socket.io';
-
-import { DialogModel, MessageModel } from '../models';
+const { DialogModel, MessageModel } = require('../models');
 
 class DialogController {
-  io: socket.Server;
 
-  constructor(io: socket.Server) {
+  constructor(io) {
     this.io = io;
   }
 
-  index = (req: any, res: express.Response) => {
+  index(req, res) {
     const userId = req.user._id;
 
     DialogModel.find()
@@ -32,7 +28,7 @@ class DialogController {
       });
   };
 
-  create = (req: express.Request, res: express.Response) => {
+  create(req, res) {
     const createDialogData = {
       author: req.user._id,
       partner: req.body.partner,
@@ -60,7 +56,7 @@ class DialogController {
 
           dialog
             .save()
-            .then((dialogObj: any) => {
+            .then((dialogObj) => {
               const message = new MessageModel({
                 text: req.body.text,
                 user: req.user._id,
@@ -83,10 +79,10 @@ class DialogController {
                   res.json(reason);
                 });
             })
-            .catch(err => {
+            .catch(errorMessage => {
               res.json({
                 status: 'error',
-                message: err,
+                message: errorMessage,
               });
             });
         }
@@ -94,8 +90,8 @@ class DialogController {
     );
   };
 
-  delete = (req: express.Request, res: express.Response) => {
-    const id: string = req.params.id;
+  delete(req, res) {
+    const id = req.params.id;
 
     DialogModel.findOneAndRemove({ _id: id })
       .then(dialog => {
@@ -113,4 +109,4 @@ class DialogController {
   };
 }
 
-export default DialogController;
+exports.module = DialogController;

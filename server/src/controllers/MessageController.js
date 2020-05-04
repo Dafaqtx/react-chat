@@ -1,24 +1,19 @@
-import express from 'express';
-import socket from 'socket.io';
-
-import { MessageModel, DialogModel } from '../models';
+const { MessageModel, DialogModel } = require('../models');
 
 class MessageController {
-  io: socket.Server;
-
-  constructor(io: socket.Server) {
+  constructor(io) {
     this.io = io;
   }
 
-  updateReadedStatus = (
-    res: express.Response,
-    userId: string,
-    dialogId: string
-  ) => {
+  updateReadedStatus(
+    res,
+    userId,
+    dialogId
+  ) {
     MessageModel.updateMany(
       { dialog: dialogId, user: { $ne: userId } },
       { $set: { readed: true } },
-      (err: any) => {
+      (err) => {
         if (err) {
           return res.status(500).json({
             status: 'error',
@@ -33,8 +28,8 @@ class MessageController {
     );
   };
 
-  index = (req: express.Request, res: express.Response) => {
-    const dialogId: string = req.query.dialog;
+  index(req, res) {
+    const dialogId = req.query.dialog;
     const userId = req.user._id;
 
     this.updateReadedStatus(res, userId, dialogId);
@@ -52,7 +47,7 @@ class MessageController {
       });
   };
 
-  create = (req: any, res: express.Response) => {
+  create(req, res) {
     const userId = req.user._id;
 
     const createMessageData = {
@@ -68,10 +63,10 @@ class MessageController {
 
     message
       .save()
-      .then((obj: any) => {
+      .then((obj) => {
         obj.populate(
           ['dialog', 'user', 'attachments'],
-          (err: any, message: any) => {
+          (err, messageObj) => {
             if (err) {
               return res.status(500).json({
                 status: 'error',
@@ -81,13 +76,13 @@ class MessageController {
 
             DialogModel.findOneAndUpdate(
               { _id: createMessageData.dialog },
-              { lastMessage: message._id },
+              { lastMessage: messageObj._id },
               { upsert: true },
-              err => {
-                if (err) {
+              error => {
+                if (error) {
                   return res.status(500).json({
                     status: 'error',
-                    message: err,
+                    message: error,
                   });
                 }
               }
@@ -104,11 +99,11 @@ class MessageController {
       });
   };
 
-  delete = (req: express.Request, res: express.Response) => {
-    const id: string = req.query.id;
-    const userId: string = req.user._id;
+  delete(req, res) {
+    const id = req.query.id;
+    const userId = req.user._id;
 
-    MessageModel.findById(id, (err, message: any) => {
+    MessageModel.findById(id, (err, message) => {
       if (err || !message) {
         return res.status(404).json({
           status: 'error',
@@ -124,19 +119,19 @@ class MessageController {
           { dialog: dialogId },
           {},
           { sort: { created_at: -1 } },
-          (err, lastMessage) => {
-            if (err) {
+          (error, lastMessage) => {
+            if (error) {
               res.status(500).json({
                 status: 'error',
-                message: err,
+                message: error,
               });
             }
 
-            DialogModel.findById(dialogId, (err, dialog: any) => {
-              if (err) {
+            DialogModel.findById(dialogId, (errorMessage, dialog) => {
+              if (errorMessage) {
                 res.status(500).json({
                   status: 'error',
-                  message: err,
+                  message: errorMessage,
                 });
               }
 
@@ -160,4 +155,4 @@ class MessageController {
   };
 }
 
-export default MessageController;
+exports.module = MessageController;

@@ -1,15 +1,13 @@
-import express from 'express';
-
-import cloudinary from '../core/cloudinary';
-import { UploadFileModel } from '../models';
+const cloudinary = require('../core/cloudinary');
+const { UploadFileModel } = require('../models');
 
 class UserController {
-  create = (req: express.Request, res: express.Response) => {
+  create(req, res) {
     const userId = req.user._id;
-    const file: any = req.file;
+    const file = req.file;
 
     cloudinary.v2.uploader
-      .upload_stream({ resource_type: 'auto' }, (error: any, result: any) => {
+      .upload_stream({ resource_type: 'auto' }, (error, result) => {
         if (error) {
           throw new Error(error);
         }
@@ -26,13 +24,13 @@ class UserController {
 
         uploadFile
           .save()
-          .then((fileObj: any) => {
+          .then((fileObj) => {
             res.json({
               status: 'success',
               file: fileObj,
             });
           })
-          .catch((err: any) => {
+          .catch((err) => {
             res.json({
               status: 'error',
               message: err,
@@ -42,9 +40,9 @@ class UserController {
       .end(file.buffer);
   };
 
-  delete = () => {
+  delete() {
     return;
   };
 }
 
-export default UserController;
+exports.module = UserController;

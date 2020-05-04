@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+const nodemailer = require('nodemailer');
 
 const options = {
   host: process.env.NODEMAILER_HOST || 'smtp.mailtrap.io',
@@ -11,4 +11,4 @@ const options = {
 
 const transport = nodemailer.createTransport(options);
 
-export default transport;
+exports.module = transport;

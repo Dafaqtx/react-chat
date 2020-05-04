@@ -1,13 +1,5 @@
-import mongoose, { Schema, Document } from 'mongoose';
-
-export interface IUploadFile extends Document {
-  filename: string;
-  size: number;
-  ext: string;
-  url: string;
-  message: string;
-  user: string;
-}
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const UploadFileSchema = new Schema(
   {
@@ -23,9 +15,9 @@ const UploadFileSchema = new Schema(
   }
 );
 
-const UploadFileModel = mongoose.model<IUploadFile>(
+const UploadFileModel = mongoose.model(
   'UploadFile',
   UploadFileSchema
 );
 
-export default UploadFileModel;
+exports.module = UploadFileModel;
