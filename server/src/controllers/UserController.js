@@ -101,40 +101,31 @@ class UserController {
 
     const user = new UserModel(registrationData);
 
-    user.save(err => {
-      if (err) return console.log(err);
-
-      return res.status(503).json({
-        status: 'error',
-        message: 'Error on save data',
+    try {
+      user.save().then(obj => {
+        res.json(obj);
+        mailer.sendMail(
+          {
+            from: 'admin@test.com',
+            to: registrationData.email,
+            subject: 'Подтверждение почты React Chat',
+            html: `Для того, чтобы подтвердить почту, перейдите по <a href="http://localhost:3000/signup/verify?hash=${obj.confirm_hash}">ссылке</a>`,
+          },
+          (err, info) => {
+            if (err) {
+              throw new Error(err);
+            } else {
+              return info;
+            }
+          }
+        );
       });
-    });
-
-    // try {
-    //   user.save().then(obj => {
-    //     res.json(obj);
-    //     mailer.sendMail(
-    //       {
-    //         from: 'admin@test.com',
-    //         to: registrationData.email,
-    //         subject: 'Подтверждение почты React Chat',
-    //         html: `Для того, чтобы подтвердить почту, перейдите по <a href="http://localhost:3000/signup/verify?hash=${obj.confirm_hash}">ссылке</a>`,
-    //       },
-    //       (err, info) => {
-    //         if (err) {
-    //           throw new Error(err);
-    //         } else {
-    //           return info;
-    //         }
-    //       }
-    //     );
-    //   });
-    // } catch (reason) {
-    //   return res.status(500).json({
-    //     status: 'error',
-    //     message: reason,
-    //   });
-    // }
+    } catch (reason) {
+      return res.status(500).json({
+        status: 'error',
+        message: reason,
+      });
+    }
   }
 
   verify(req, res) {

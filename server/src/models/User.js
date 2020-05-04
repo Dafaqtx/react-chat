@@ -36,8 +36,8 @@ const UserSchema = new Schema(
   }
 );
 
-UserSchema.virtual('isOnline').get(function (user) {
-  return differenceInMinutes(new Date(), user.last_seen) < 5;
+UserSchema.virtual('isOnline').get(function () {
+  return differenceInMinutes(new Date(), this.last_seen) < 5;
 });
 
 UserSchema.set('toJSON', {
