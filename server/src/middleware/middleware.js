@@ -1,3 +1,1 @@
-exports.module = function checkAuth() {
-
-}
+module.exports = function checkAuth() {};

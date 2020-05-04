@@ -10,8 +10,8 @@ const DialogSchema = new Schema(
   {
     timestamps: true,
   }
-)
+);
 
-const DialogModel = mongoose.model('Dialog', DialogSchema)
+const DialogModel = mongoose.model('Dialog', DialogSchema);
 
-exports.module = DialogModel
+module.exports = DialogModel;

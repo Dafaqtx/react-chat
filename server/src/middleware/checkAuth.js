@@ -1,6 +1,6 @@
 const { verifyJWTToken } = require('../helpers');
 
-exports.module =  (req, res, next) => {
+module.exports = (req, res, next) => {
   if (
     req.path === '/users/signIn' ||
     req.path === '/users/signUp' ||
@@ -12,7 +12,7 @@ exports.module =  (req, res, next) => {
   const token = req.headers.token;
 
   verifyJWTToken(token)
-    .then((user) => {
+    .then(user => {
       req.user = user.data._doc;
       next();
     })

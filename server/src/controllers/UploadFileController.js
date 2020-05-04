@@ -24,13 +24,13 @@ class UserController {
 
         uploadFile
           .save()
-          .then((fileObj) => {
+          .then(fileObj => {
             res.json({
               status: 'success',
               file: fileObj,
             });
           })
-          .catch((err) => {
+          .catch(err => {
             res.json({
               status: 'error',
               message: err,
@@ -38,11 +38,11 @@ class UserController {
           });
       })
       .end(file.buffer);
-  };
+  }
 
   delete() {
     return;
-  };
+  }
 }
 
-exports.module = UserController;
+module.exports = UserController;

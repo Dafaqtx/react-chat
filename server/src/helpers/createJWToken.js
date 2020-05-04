@@ -1,8 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { reduce } = require('lodash');
 
-
-exports.module = (user) => {
+module.exports = user => {
   const token = jwt.sign(
     {
       data: reduce(

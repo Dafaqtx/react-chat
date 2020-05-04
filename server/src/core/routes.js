@@ -45,4 +45,4 @@ const createRoutes = (app, io) => {
   app.delete('/files', UploadFile.delete);
 };
 
-exports.module = createRoutes;
+module.exports = createRoutes;

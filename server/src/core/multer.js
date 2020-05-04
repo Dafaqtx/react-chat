@@ -4,4 +4,4 @@ const storage = multer.memoryStorage();
 
 const uploader = multer({ storage });
 
-exports.module = uploader;
+module.exports = uploader;

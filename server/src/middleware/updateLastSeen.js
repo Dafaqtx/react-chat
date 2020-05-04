@@ -1,10 +1,6 @@
 const { UserModel } = require('../models');
 
-exports.module = function(
-  req,
-  __,
-  next
-) {
+module.exports = function (req, __, next) {
   if (req.user) {
     UserModel.findOneAndUpdate(
       { _id: req.user.id },
@@ -16,4 +12,4 @@ exports.module = function(
     );
   }
   next();
-}
+};

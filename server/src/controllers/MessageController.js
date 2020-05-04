@@ -148,4 +148,4 @@ class MessageController {
   }
 }
 
-exports.module = MessageController;
+module.exports = MessageController;
