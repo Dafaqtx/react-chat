@@ -7,6 +7,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 
 const logger = require('./helpers/logger')
+const middleware = require('./helpers/middleware')
 
 const MONGODB_URI = config.get('MONGODB_URI')
 
@@ -23,11 +24,15 @@ mongoose
 
 app.use(cors())
 app.use(bodyParser.json())
+app.use(middleware.requestLogger)
 
 router.get('/', (req, res) => {
   res.json(req.query)
 })
 
 app.use('/api', router)
+
+app.use(middleware.unknownEndpoint)
+app.use(middleware.errorHandler)
 
 module.exports = app
