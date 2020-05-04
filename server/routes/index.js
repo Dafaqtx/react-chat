@@ -16,14 +16,15 @@ const createRoutes = app => {
 
   app.use(cors());
   app.use(bodyParser.json());
-  app.use(middleware.requestLogger);
-  app.use(middleware.unknownEndpoint);
-  app.use(middleware.errorHandler);
 
   app.use('/api', router);
 
-  app.post('/users/registration', registerValidation, User.registration);
-  app.post('/users/login', loginValidation, User.login);
+  router.post('/users/registration', registerValidation, User.registration);
+  router.post('/users/login', loginValidation, User.login);
+
+  app.use(middleware.requestLogger);
+  app.use(middleware.unknownEndpoint);
+  app.use(middleware.errorHandler);
 };
 
 module.exports = createRoutes;
