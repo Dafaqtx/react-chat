@@ -25,7 +25,7 @@ const Actions = {
   },
   fetchUserLogin: data => dispatch => {
     return api
-      .signIn(data)
+      .login(data)
       .then(({ data }) => {
         const { token } = data;
         showNotification({
@@ -48,7 +48,7 @@ const Actions = {
       });
   },
   fetchUserRegister: data => () => {
-    return api.signUp(data);
+    return api.registration(data);
   },
 };
 

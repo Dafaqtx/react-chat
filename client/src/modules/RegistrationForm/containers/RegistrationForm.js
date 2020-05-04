@@ -27,7 +27,7 @@ export default withFormik({
     store
       .dispatch(userActions.fetchUserRegister(values))
       .then(() => {
-        useHistory().push('/signup/verify');
+        useHistory().push('/registration/verify');
         setSubmitting(false);
       })
       .catch(err => {

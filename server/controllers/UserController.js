@@ -1,21 +1,13 @@
 const bycrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const config = require('config')l
-const { Router } = require('express');
+const config = require('config');
 const { check, validationResult } = require('express-validator');
 
 const User = require('../models/User');
 const logger = require('../helpers/logger');
 
-const router = Router();
-
-router.post(
-  '/registration',
-  [
-    check('email', 'Email is invalid').isEmail(),
-    check('password', 'Min length is 6 chars').isLength({ min: 6 }),
-  ],
-  async (req, res) => {
+class UserController {
+  async registration(req, res) {
     try {
       const errors = validationResult(req);
 
@@ -43,21 +35,14 @@ router.post(
       await user.save();
 
       logger.info('user created', candidate);
-      return res.status(201).json({ message: 'User succefull created!' });
+      return res.status(201).json({ message: 'User successful created!' });
     } catch (error) {
       logger.error('reg err', error);
       res.status(500).json({ message: 'Error on registration' });
     }
   }
-);
 
-router.post(
-  '/login',
-  [
-    check('email', 'Incorrect password or email').normalizeEmail().isEmail(),
-    check('password', 'Incorrect password or email'),
-  ],
-  async (req, res) => {
+  async login(req, res) {
     try {
       const errors = validationResult(req);
 
@@ -89,10 +74,11 @@ router.post(
           .json({ message: 'Password is incorrect, try again' });
       }
 
-      const token = jwt.sign({ user: user._id }, config.get('JWT_SECRET_KEY'), {expiresIn: config.get('JWT_TOKEN_EXPIRES')});
+      const token = jwt.sign({ user: user._id }, config.get('JWT_SECRET_KEY'), {
+        expiresIn: config.get('JWT_TOKEN_EXPIRES'),
+      });
 
-      return res.json({token, userId: user._id})
-
+      return res.json({ token, userId: user._id });
     } catch (error) {
       logger.error('reg err', error);
       res.status(500).json({
@@ -100,6 +86,6 @@ router.post(
       });
     }
   }
-);
+}
 
-module.exports = router;
+module.exports = UserController;
