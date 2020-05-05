@@ -11,7 +11,7 @@ const Dialogs = ({ items, setCurrentDialogId, getDialogList }) => {
 
   useEffect(() => {
     if (!items.length) {
-      getDialogList();
+      // getDialogList();
     }
     setFilteredList(items);
   }, [items, getDialogList]);

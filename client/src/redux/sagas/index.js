@@ -1,6 +1,6 @@
 import { all } from 'redux-saga/effects';
 
-import { usersSaga } from './usersSaga';
+import usersSaga from './usersSaga';
 
 const sagas = [usersSaga];
 

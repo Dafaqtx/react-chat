@@ -6,8 +6,11 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 
 import App from './App';
+import { userActions } from 'redux/actions';
 
 import './styles/index.scss';
+
+// store.dispatch(userActions.getUserData.request());
 
 const app = (
   <Provider store={store}>
