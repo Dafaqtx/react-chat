@@ -16,7 +16,7 @@ class UserController {
 
         return res.status(400).json({
           errors: errors.array(),
-          message: 'Incorrect registration data',
+          message: 'Неправильно заполнены поля',
         });
       }
 
@@ -26,22 +26,25 @@ class UserController {
 
       if (candidate) {
         logger.warn('user exist', candidate);
-        return res.status(400).json({ message: 'User already exists' });
+        return res
+          .status(400)
+          .json({ message: 'Пользователь с такой почтой уже есть' });
       }
 
       const hashedPass = await bcrypt.hash(
         password,
         config.get('BCRYPT_SALT_ROUNDS')
       );
+
       const user = new User({ email, fullName, password: hashedPass });
 
       await user.save();
 
-      logger.info('user created', candidate);
-      return res.status(201).json({ message: 'User successful created!' });
+      logger.info('user created');
+      return res.status(201).json({ message: 'success' });
     } catch (error) {
       logger.error('reg err', error);
-      res.status(500).json({ message: 'Error on registration' });
+      res.status(500).json({ message: 'Произошла ошибка при регистрации' });
     }
   }
 
@@ -54,7 +57,7 @@ class UserController {
 
         return res.status(400).json({
           errors: errors.array(),
-          message: 'Incorrect login data',
+          message: 'Некорректные данные',
         });
       }
 
@@ -64,17 +67,15 @@ class UserController {
 
       if (!user) {
         logger.error('login user exist err', error);
-        res.status(404).json({ message: 'User does not exist' });
+        res.status(404).json({ message: 'Данная почта не зарегистрирована' });
       }
 
-      const isMatch = await bcrypt.compare(password.user.password);
+      const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
         logger.error('login isMatch err', errors.array());
 
-        return res
-          .status(403)
-          .json({ message: 'Password is incorrect, try again' });
+        return res.status(403).json({ message: 'Неверный логин или пароль' });
       }
 
       const token = jwt.sign({ user: user._id }, config.get('JWT_SECRET_KEY'), {
@@ -85,7 +86,7 @@ class UserController {
     } catch (error) {
       logger.error('reg err', error);
       res.status(500).json({
-        message: 'Error on login',
+        message: 'На сервере возникла при авторизации',
       });
     }
   }
