@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Spin } from 'antd';
 import { connect } from 'react-redux';
 
-import { messagesActions } from 'redux/actions';
+// import { messagesActions } from 'redux/actions';
 
 import { MessagesList } from 'components';
 
@@ -43,4 +43,5 @@ Messages.defaultProps = {
   currentDialogId: null,
 };
 
-export default connect(({ messages }) => messages, messagesActions)(Messages);
+// export default connect(({ messages }) => messages, messagesActions)(Messages);
+export default connect(({ messages }) => messages)(Messages);

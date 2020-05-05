@@ -1,3 +1,5 @@
-export { default as dialogsActions } from './dialogs';
-export { default as messagesActions } from './messages';
-export { default as userActions } from './user';
+import * as userActions from './users';
+import * as dialogActions from './dialogs';
+import * as messageActions from './messages';
+
+export { userActions, dialogActions, messageActions };
