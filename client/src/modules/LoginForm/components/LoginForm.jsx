@@ -23,16 +23,16 @@ const LoginForm = ({
       <Block>
         <Form onFinish={handleSubmit}>
           <Form.Item
-            name="name"
-            validateStatus={validateField('name', touched, errors)}
-            help={touched.name ? errors.name : null}
+            name="email"
+            validateStatus={validateField('email', touched, errors)}
+            help={touched.email ? errors.email : null}
             hasFeedback>
             <Input
-              placeholder="Имя"
+              placeholder="E-mail"
               size="large"
               onChange={handleChange}
               onBlur={handleBlur}
-              value={values.name}
+              value={values.email}
             />
           </Form.Item>
           <Form.Item

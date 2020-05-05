@@ -25,7 +25,7 @@ export default withFormik({
     store
       .dispatch(userActions.fetchUserRegister(values))
       .then(() => {
-        // props.history.push('/registration/verify');
+        props.history.push('/registration/verify');
         setSubmitting(false);
       })
       .catch(({ response: { data } }) => {
@@ -33,8 +33,6 @@ export default withFormik({
         const errorText = Array.from(data.errors)
           .map(error => error.msg)
           .join(', \n');
-
-        console.log(errorText);
 
         for (const error of Array.from(data.errors)) {
           setFieldError(error.param, error.msg);

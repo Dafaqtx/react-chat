@@ -1,4 +1,5 @@
-const isEmail = value => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value);
+const isEmail = value =>
+  /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value);
 const isStrongPassword = value =>
   /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/.test(value);
 const isPassConfirmed = (password, confirmation) => password === confirmation;
@@ -20,10 +21,8 @@ export default ({ isAuth, values, errors }) => {
     password: value => {
       if (!value) {
         errors.password = 'Введите пароль';
-      } else if (!isStrongPassword(value)) {
-        errors.password = isAuth
-          ? 'Неверный пароль'
-          : 'Пароль должен быть сложным';
+      } else if (!isStrongPassword(value) && !isAuth) {
+        errors.password = 'Пароль должен быть сложным';
       }
     },
     confirmation: value => {
