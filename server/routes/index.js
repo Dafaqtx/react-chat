@@ -19,6 +19,8 @@ const createRoutes = app => {
 
   app.use('/api', router);
 
+  router.get('/', middleware.checkAuth, async (req, res) => req.query);
+
   router.post('/users/registration', registerValidation, User.registration);
   router.post('/users/login', loginValidation, User.login);
 

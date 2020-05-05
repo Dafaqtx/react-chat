@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const { validationResult } = require('express-validator');
 
-const User = require('../models/User');
+const { User } = require('../models');
 const logger = require('../helpers/logger');
 
 class UserController {
@@ -64,7 +64,7 @@ class UserController {
 
       if (!user) {
         logger.error('login user exist err', error);
-        res.status(404).json({ message: 'User doesnt exist' });
+        res.status(404).json({ message: 'User does not exist' });
       }
 
       const isMatch = await bcrypt.compare(password.user.password);

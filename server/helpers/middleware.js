@@ -27,7 +27,11 @@ const errorHandler = (error, request, response, next) => {
 };
 
 const checkAuth = (req, res, next) => {
-  if (req.method === 'OPTIONS') {
+  if (
+    req.method === 'OPTIONS' ||
+    req.path === '/api/users/login' ||
+    req.path === '/api/users/registration'
+  ) {
     return next();
   }
 
