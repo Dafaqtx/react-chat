@@ -2,5 +2,6 @@
   "PORT": 3001,
   "MONGODB_URI": "mongodb://localhost:27017/chat",
   "JWT_SECRET_KEY": "VcKPWeSvw9g59HpA",
-  "JWT_TOKEN_EXPIRES": "1h"
+  "JWT_TOKEN_EXPIRES": "1h",
+  "BCRYPT_SALT_ROUNDS": 12
 }

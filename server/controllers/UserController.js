@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('config');
-const {  validationResult } = require('express-validator');
+const { validationResult } = require('express-validator');
 
 const User = require('../models/User');
 const logger = require('../helpers/logger');
@@ -29,7 +29,10 @@ class UserController {
         return res.status(400).json({ message: 'User already exists' });
       }
 
-      const hashedPass = await bcrypt.hash(password, 12);
+      const hashedPass = await bcrypt.hash(
+        password,
+        config.get('BCRYPT_SALT_ROUNDS')
+      );
       const user = new User({ email, fullName, password: hashedPass });
 
       await user.save();
